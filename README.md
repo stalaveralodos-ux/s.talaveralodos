@@ -1,6 +1,6 @@
 # Silvia Talavera Lodos — Portfolio Site
 
-Personal portfolio and policy brief repository. Built as a single-page static site — no frameworks, no build step, ready for GitHub Pages.
+Personal portfolio and policy brief repository. Built as a single-page static site — no frameworks, no build step, ready for GitHub Pages.ññ
 
 ---
 

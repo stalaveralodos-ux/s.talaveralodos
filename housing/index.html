@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Housing and the Constitutional Limits of Municipal Power</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --navy-deep:#0d1c2b;
+  --navy:#152c40;
+  --navy-line: rgba(240,234,217,0.16);
+  --paper:#efe8d6;
+  --ink:#241f18;
+  --ink-soft:#4a4436;
+  --stamp:#9c3b2c;
+  --green:#49624b;
+  --gold:#b6852f;
+  --serif: 'Newsreader', Georgia, serif;
+  --sans: 'IBM Plex Sans', -apple-system, sans-serif;
+  --mono: 'IBM Plex Mono', 'Courier New', monospace;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{ margin:0; background:var(--navy-deep); color:var(--paper); font-family:var(--sans); line-height:1.55; }
+a{color:inherit;}
+
+header.hero{
+  position:relative; padding: 70px 24px 54px;
+  background: radial-gradient(circle at 85% 10%, rgba(182,133,47,0.10), transparent 45%), var(--navy-deep);
+  border-bottom: 1px solid var(--navy-line); overflow:hidden;
+}
+header.hero::before{
+  content:""; position:absolute; inset:0;
+  background-image: linear-gradient(var(--navy-line) 1px, transparent 1px), linear-gradient(90deg, var(--navy-line) 1px, transparent 1px);
+  background-size: 34px 34px; opacity:0.5;
+  mask-image: linear-gradient(to bottom, black, transparent 85%);
+}
+.hero-inner{ position:relative; max-width:920px; margin:0 auto; }
+.eyebrow{ font-family:var(--mono); font-size:12.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); display:flex; align-items:center; gap:10px; margin-bottom:20px; }
+.eyebrow .dot{width:6px;height:6px;background:var(--gold);border-radius:50%;}
+h1.title{ font-family:var(--serif); font-weight:500; font-size:clamp(30px, 5vw, 50px); line-height:1.1; margin:0 0 18px; max-width: 16ch; }
+h1.title em{font-style:italic; color:var(--gold); font-weight:500;}
+.thesis{ font-size:16.5px; color:rgba(239,232,214,0.82); max-width:62ch; margin:0 0 8px; }
+
+section{ padding: 54px 24px; max-width:1080px; margin:0 auto; }
+.section-head{ margin-bottom:30px; max-width: 68ch;}
+.section-num{ font-family:var(--mono); font-size:12px; color:var(--gold); letter-spacing:0.1em; margin-bottom:8px; display:block; }
+h2.section-title{ font-family:var(--serif); font-weight:500; font-size:clamp(22px, 3.2vw, 30px); margin:0 0 10px; }
+.section-sub{ color:rgba(239,232,214,0.66); font-size:14.5px; }
+
+.selector{ display:flex; gap:10px; overflow-x:auto; padding: 4px 4px 18px; scrollbar-width: thin; }
+.selector::-webkit-scrollbar{ height:6px; }
+.selector::-webkit-scrollbar-thumb{ background:var(--navy-line); border-radius:4px; }
+
+.tile{
+  flex: 0 0 auto; width:132px; background:var(--navy); border:1px solid var(--navy-line);
+  border-radius:3px; padding:10px 10px 12px; cursor:pointer; text-align:left;
+  transition: border-color 0.15s ease, transform 0.15s ease, background 0.15s ease; color:inherit; font-family:inherit;
+}
+.tile:hover{ transform: translateY(-2px); border-color: var(--city, rgba(182,133,47,0.5)); }
+.tile:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+.tile.active{ border-color: var(--city, var(--gold)); background: var(--city-soft, rgba(182,133,47,0.08)); }
+.tile svg{ width:100%; height:52px; display:block; margin-bottom:8px; }
+.tile-name{ font-family:var(--serif); font-size:15px; font-weight:600; color:var(--paper); }
+.tile-country{ font-family:var(--mono); font-size:9.5px; color:rgba(239,232,214,0.5); text-transform:uppercase; letter-spacing:0.05em; }
+
+.stage{
+  background: var(--paper); color:var(--ink); border-radius:4px;
+  padding: 32px 32px 30px; box-shadow: 0 20px 46px -18px rgba(0,0,0,0.55);
+  border-top: 5px solid var(--city, var(--gold));
+}
+@media (max-width:640px){ .stage{ padding:24px 18px 24px; } }
+
+.stage-top{ display:grid; grid-template-columns: 1fr 210px; gap:26px; align-items:flex-start; margin-bottom:22px; }
+@media (max-width:700px){ .stage-top{ grid-template-columns:1fr; } }
+.stage-city{ font-family:var(--serif); font-size:clamp(28px,4vw,38px); font-weight:600; line-height:1.05; margin:0 0 6px; }
+.stage-country{ font-family:var(--mono); font-size:11.5px; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:14px; }
+.stage-illustration{ background: var(--navy); border-radius:3px; padding:14px; }
+.stage-illustration svg{ width:100%; height:110px; display:block; }
+.scale-note{ font-family:var(--mono); font-size:9.5px; color:rgba(239,232,214,0.55); margin-top:8px; line-height:1.4; }
+
+.authority-box{ background: var(--city-soft, rgba(73,98,75,0.08)); border-left:3px solid var(--city, var(--green)); padding:12px 16px; margin-bottom:20px; border-radius:2px; }
+.authority-label{ font-family:var(--mono); font-size:10.5px; text-transform:uppercase; letter-spacing:0.05em; color:var(--city, var(--green)); font-weight:600; margin-bottom:4px; }
+.authority-text{ font-size:14px; color:var(--ink-soft); }
+
+.stage-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:26px; margin-bottom:22px; }
+@media (max-width:760px){ .stage-grid{ grid-template-columns:1fr; } }
+
+.block-label{ font-family:var(--mono); font-size:10.5px; text-transform:uppercase; letter-spacing:0.05em; color:var(--stamp); font-weight:600; margin-bottom:10px; }
+.toolkit-text, .outcome-text{ font-size:14px; color:var(--ink-soft); }
+
+.indicators{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:22px; }
+.indicator{ background:var(--navy); color:var(--paper); border-radius:3px; padding:12px 14px; min-width:150px; flex:1; }
+.indicator-value{ font-family:var(--serif); font-size:20px; font-weight:600; color:var(--city, var(--gold)); line-height:1.1; margin-bottom:4px;}
+.indicator-label{ font-size:12px; color:rgba(239,232,214,0.75); }
+
+.measures{ border-top:1px dashed rgba(36,31,24,0.28); padding-top:16px; }
+.measure-row{ display:grid; grid-template-columns:64px 1fr; gap:14px; padding:8px 0; font-size:13.8px; }
+.measure-year{ font-family:var(--mono); color:var(--city, var(--stamp)); font-weight:600; }
+.measure-text{ color:var(--ink-soft); }
+
+.cite-box{ margin-top:18px; font-family:var(--mono); font-size:10.5px; color:var(--ink-soft); }
+
+.stage[data-anim="in"]{ animation: fadeUp 0.25s ease; }
+@keyframes fadeUp{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+@media (prefers-reduced-motion: reduce){ .stage[data-anim="in"]{ animation:none; } .tile{ transition:none; } }
+
+.findings{ display:grid; grid-template-columns: repeat(3,1fr); gap:20px; }
+@media (max-width:760px){ .findings{ grid-template-columns:1fr; } }
+.finding{ background: rgba(255,255,255,0.03); border: 1px solid var(--navy-line); border-left: 3px solid var(--gold); padding: 18px 18px 16px; border-radius:2px; }
+.finding h3{ font-family:var(--serif); font-weight:500; font-size:16px; margin:0 0 8px; }
+.finding p{ font-size:13.5px; color:rgba(239,232,214,0.72); margin:0; }
+
+.timeline-wrap{ background: var(--navy); border:1px solid var(--navy-line); border-radius:3px; padding: 28px 24px 8px; }
+.tl-city-label{ font-family:var(--mono); font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold); margin-bottom:14px; }
+.tl-track{ position:relative; padding-left:6px; border-left:2px solid rgba(239,232,214,0.18); margin-bottom:28px; }
+.tl-item{ position:relative; padding: 0 0 20px 20px; }
+.tl-item::before{ content:""; position:absolute; left:-7px; top:2px; width:11px; height:11px; border-radius:50%; background: var(--navy); border:2px solid var(--stamp); }
+.tl-item.local::before{ border-color: var(--green); }
+.tl-date{ font-family:var(--mono); font-size:11px; color:var(--gold); margin-bottom:2px; }
+.tl-text{ font-size:13.5px; color:rgba(239,232,214,0.85); max-width:60ch; }
+.legend{ display:flex; gap:16px; font-family:var(--mono); font-size:10.5px; color:rgba(239,232,214,0.6); padding: 4px 0 20px; flex-wrap:wrap;}
+.legend span{ display:inline-flex; align-items:center; gap:5px; }
+.legend i{ width:9px; height:9px; border-radius:50%; border:2px solid var(--stamp); display:inline-block;}
+.legend i.local{ border-color:var(--green); }
+
+.reco-list{ display:flex; flex-direction:column; border-top:1px solid var(--navy-line); }
+.reco{ display:grid; grid-template-columns: 46px 1fr; gap:16px; padding: 18px 0; border-bottom:1px solid var(--navy-line); }
+.reco-num{ font-family:var(--serif); font-size:23px; color:var(--gold); font-style:italic; }
+.reco h3{ font-size:14.5px; margin:0 0 5px; }
+.reco p{ margin:0; font-size:13.3px; color:rgba(239,232,214,0.7); max-width:64ch; }
+
+footer{ padding: 40px 24px 56px; border-top:1px solid var(--navy-line); max-width:1080px; margin:0 auto; }
+.foot-grid{ display:flex; justify-content:space-between; gap:22px; flex-wrap:wrap; }
+.foot-col{ max-width:440px; }
+.foot-label{ font-family:var(--mono); font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold); margin-bottom:7px;}
+.foot-col p{ font-size:12.8px; color:rgba(239,232,214,0.65); margin:0 0 6px; }
+.stamp-note{ font-family:var(--mono); font-size:10.5px; color:rgba(239,232,214,0.45); margin-top:22px; }
+
+.legend-cities{ display:flex; flex-wrap:wrap; gap:14px; font-family:var(--mono); font-size:10.5px; color:rgba(239,232,214,0.6); margin-top:16px; }
+.legend-cities span{ display:inline-flex; align-items:center; gap:6px; }
+.legend-cities i{ width:10px; height:10px; border-radius:2px; display:inline-block; }
+
+::selection{ background:var(--gold); color:var(--navy-deep); }
+:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow"><span class="dot"></span>Comparative repository · local government and housing</div>
+    <h1 class="title">Six cities, six <em>case files</em> on housing.</h1>
+    <p class="thesis">Choose a city to open its case file: the responsible authority, the measures actually adopted, and the indicators available. Each city carries its own accent color, drawn from the same palette, so the highlighted bar in its illustration represents, qualitatively, the weight of public housing stock in that city.</p>
+    <div class="legend-cities" id="cityLegend"></div>
+  </div>
+</header>
+
+<section id="cities">
+  <div class="section-head">
+    <span class="section-num">01 — City explorer</span>
+    <h2 class="section-title">Tap a city to open its case file</h2>
+  </div>
+
+  <div class="selector" id="selector"></div>
+  <div class="stage" id="stage"></div>
+</section>
+
+<section id="findings">
+  <div class="section-head">
+    <span class="section-num">02 — Cross-cutting findings</span>
+    <h2 class="section-title">What recurs across cases</h2>
+  </div>
+  <div class="findings">
+    <div class="finding"><h3>Coverage</h3><p>Coverage reflects the inherited housing regime and the legal tools available to change it. Without the power to produce, acquire, or reserve stock, and without stable funding streams, supply cannot keep pace with demand, regardless of municipal effort.</p></div>
+    <div class="finding"><h3>Accessibility</h3><p>Accessibility depends as much on market regulation as on direct subsidy. Barcelona's combination of demand-side support with supply-side rules tempers displacement in specific sub-markets in a way that neither Turin's targeted funds nor the nationally mediated action of Athens or Lisbon can match.</p></div>
+    <div class="finding"><h3>Inclusion</h3><p>Inclusion depends on whether housing policy is co-produced with civil society under stable institutional arrangements. In Athens, solidarity networks frequently substitute for missing state capacity; in Berlin, civil society itself drafts the law the administration resists passing.</p></div>
+  </div>
+</section>
+
+<section id="obstacle">
+  <div class="section-head">
+    <span class="section-num">03 — The state as obstacle, not only as enabler</span>
+    <h2 class="section-title">Two timelines of the national-local pendulum</h2>
+    <p class="section-sub">The Berlin and Lisbon cases show how that pendulum swings in both directions within a single legislative cycle.</p>
+  </div>
+  <div class="timeline-wrap">
+    <div class="legend"><span><i></i> state decision or restriction</span><span><i class="local"></i> municipal response or mandate</span></div>
+    <div class="tl-city-label">Berlin — disputed legislative competence</div>
+    <div class="tl-track">
+      <div class="tl-item local"><div class="tl-date">Feb 2020</div><div class="tl-text">The state of Berlin passes the <b>Mietendeckel</b>, its own rent cap, claiming regional competence over housing.</div></div>
+      <div class="tl-item"><div class="tl-date">Mar 2021</div><div class="tl-text">The Federal Constitutional Court annuls the Mietendeckel: rent regulation for private housing falls under exclusive federal competence.</div></div>
+      <div class="tl-item local"><div class="tl-date">Sep 2021</div><div class="tl-text">The <b>Deutsche Wohnen & Co. enteignen</b> referendum: 59.1% vote to socialize the stock of large corporate landlords. Non-binding.</div></div>
+      <div class="tl-item"><div class="tl-date">2023–2025</div><div class="tl-text">An expert commission confirms that socialization is legal; the Senate delays the framework law. A federal court also strikes down the municipal right of first refusal.</div></div>
+      <div class="tl-item local"><div class="tl-date">2026</div><div class="tl-text">A second, binding referendum, timed to coincide with the state elections; campaigners draft their own bill.</div></div>
+    </div>
+    <div class="tl-city-label">Lisbon — the short-term rental and Golden Visa pendulum</div>
+    <div class="tl-track">
+      <div class="tl-item"><div class="tl-date">Oct 2023</div><div class="tl-text">Portugal drops real estate purchase as a route to the <b>Golden Visa</b>, within the "Mais Habitação" package.</div></div>
+      <div class="tl-item"><div class="tl-date">2023</div><div class="tl-text">The same package freezes new short-term rental licences nationwide in high-density municipalities.</div></div>
+      <div class="tl-item"><div class="tl-date">Nov 2024</div><div class="tl-text">A new government reverses the freeze (Decree-Law 76/2024): licences become permanent and transferable again.</div></div>
+      <div class="tl-item local"><div class="tl-date">Dec 2025</div><div class="tl-text">Lisbon passes its own containment ordinance (RMAL): blocks new licences where density exceeds 10%, with some parishes reaching 66.9%.</div></div>
+      <div class="tl-item"><div class="tl-date">2026</div><div class="tl-text">Despite years of regulatory back-and-forth, rents keep climbing: municipal containment arrives after the pressure has already built up.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="recommendations">
+  <div class="section-head">
+    <span class="section-num">04 — Recommendations for city networks</span>
+    <h2 class="section-title">From comparative evidence to an advocacy agenda</h2>
+  </div>
+  <div class="reco-list">
+    <div class="reco"><div class="reco-num">01</div><div><h3>Twin track: expand supply and regulate the market</h3><p>Supply alone, as Turin shows, stabilizes households but does not reprice the market. It must be paired with rent regulation, short-term rental governance, and eviction prevention.</p></div></div>
+    <div class="reco"><div class="reco-num">02</div><div><h3>Push for legal authority at the national level</h3><p>Golden Visa schemes and permissive short-term rental regimes should be treated as housing issues, not just investment or tourism policy. Athens and Lisbon show that local action alone cannot offset these distortions.</p></div></div>
+    <div class="reco"><div class="reco-num">03</div><div><h3>Secure a regulatory toolkit, not only subsidies</h3><p>Land use, leasing, short-term rental control, and value capture. Barcelona indicates it is this combination, not subsidy size, that drives outcomes.</p></div></div>
+    <div class="reco"><div class="reco-num">04</div><div><h3>Formalize co-production while recognizing its friction</h3><p>Partnerships with anti-eviction organizations should expect constructive friction, with transparent grievance channels, rather than a straightforwardly collaborative model.</p></div></div>
+    <div class="reco"><div class="reco-num">05</div><div><h3>Use inter-city alliances for binding benchmarks</h3><p>Networks such as the Mayors for Housing Alliance add the most value when tied to EU funding conditions, rather than relying on non-binding declarations.</p></div></div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-grid">
+    <div class="foot-col"><div class="foot-label">Original source</div><p>Talavera Lodos, <em>The Constitutional Role of Municipalities in the Governance of Social Rights</em>, Sant'Anna School of Advanced Studies, 2025. Policy Brief 3 of 3 — Housing.</p></div>
+    <div class="foot-col"><div class="foot-label">Expanding the repository</div><p>The Vienna, Berlin, and Lisbon case files were built through additional research specifically for this panel. The structure is designed to accommodate new cities without reworking the comparative framework.</p></div>
+  </div>
+  <div class="stamp-note">Built as a reference resource for local governments and city networks, and as a visual synthesis of the policy brief series on municipal social rights.</div>
+</footer>
+
+<script>
+// score: 1-3 qualitative weight of the public housing stock, used only for illustration height
+// color: distinct accent per city, drawn from the same muted institutional palette
+const cities = [
+  { key:"turin", city:"Turin", country:"Italy", score:2, color:"#7a8fa6", seed:[30,44,26,52,34],
+    authority:"Agenzia Territoriale per la Casa del Piemonte Centrale (ATC)",
+    authorityDesc:"A regional agency that manages Turin's social housing stock together with 40 other municipalities in the metropolitan area — not a purely municipal body, which already limits the city's own autonomy over its stock.",
+    toolkit:"A regionalized Italian framework (edilizia residenziale pubblica, ERP) with municipally brokered models: public-private rehabilitation, ethical intermediation, community residences.",
+    outcome:"Targeted funds and arrears prevention stabilize households, but the stock remains scarce and slow-turnover: it cannot reprice the wider market.",
+    indicators:[["28,726","housing units managed across the metropolitan area"],["56,923","people living in the social housing stock"],["€99","average monthly rent"]],
+    measures:[["2010","Regional Law 3/2010 regulates edilizia sociale and the powers of territorial agencies."],["2019–","Ethical intermediation and public-private rehabilitation programs expand supply without large-scale new construction."],["2023–26","PNRR and Superbonus funds directed at energy efficiency in the existing stock."]],
+    cite:"Sources: Talavera Lodos (2025); ATC Piemonte Centrale / Federcasa (2025)."
+  },
+  { key:"barcelona", city:"Barcelona", country:"Spain", score:2, color:"#b6852f", seed:[38,52,30,60,42],
+    authority:"Institut Municipal de l'Habitatge i Rehabilitació de Barcelona (IMHAB)",
+    authorityDesc:"A municipal body that integrates the promotion and management of the public housing stock with all housing-related services: aid, emergency response, and the rental pool.",
+    toolkit:"A decentralized Spanish-Catalan architecture: acquisitions, inclusionary reservation, rights of first refusal, and selective rent regulation alongside municipal production.",
+    outcome:"The most programmatic expansion of affordable housing among the three original cases, though the public stock remains modest and faces persistent litigation.",
+    indicators:[["11,500+","units managed by IMHAB (2023), targeting 15,000 by 2027"],["90,000","estimated housing shortfall in the city"],["44%","of the population spends over 30% of income on housing"]],
+    measures:[["2019","The APROP program begins: fast-build modular temporary housing."],["2022–25","Purchase of vacant flats and industrialized construction under the Pla Viure."],["2024","The new national rent-containment law takes effect; Barcelona is the largest municipality under this regulation."]],
+    cite:"Sources: Talavera Lodos (2025); Ajuntament de Barcelona / IMHAB (2025-2026)."
+  },
+  { key:"athens", city:"Athens", country:"Greece", score:1, color:"#a8703f", seed:[24,34,20,30,26],
+    authority:"No dedicated municipal agency for social housing production. The Reception and Solidarity Centre (KYADA) handles the municipality's response to homelessness.",
+    authorityDesc:"Unlike the other cases, Athens has no equivalent to IMHAB or Wiener Wohnen: the institutional response is concentrated on housing emergencies rather than stock production.",
+    toolkit:"Historical reliance on dense private stock and family-based provision, with recent re-entry via social leasing and small-scale rehabilitation.",
+    outcome:"Local capacity to constrain short-term rentals or capture value is mediated almost entirely by national law; municipal action reduces barriers only at the margin.",
+    indicators:[["400","capacity at the Multidisciplinary Homeless Centre"],["~1,400","people living rough supported by Street Work teams"],["0","direct municipal production of social housing"]],
+    measures:[["2025","A new operational framework (April) improves coordination of Street Work teams and housing reintegration pathways."],["2025","KYADA maintains two core structures: the Reception Centre on Acharnon Street and the Street Work teams based on Sofokleous Street."]],
+    cite:"Sources: Talavera Lodos (2025); Greek City Times (Dec. 2025)."
+  },
+  { key:"vienna", city:"Vienna", country:"Austria", score:3, color:"#49624b", seed:[46,60,38,68,50],
+    authority:"Wiener Wohnen, the City of Vienna's direct manager of the Gemeindebauten housing stock.",
+    authorityDesc:"Wiener Wohnen directly administers the largest municipal housing stock in Europe; the city never privatized this stock, not even during the decades when neoliberal policy dominated elsewhere.",
+    toolkit:"Institutional continuity since the 'Red Vienna' of the 1920s: direct municipal ownership (Gemeindebauten) and limited-profit cooperative housing.",
+    outcome:"Close to half the population lives in subsidized housing; the sheer volume of the stock exerts a moderating effect across the whole city, though the older stock carries maintenance deficits and a significant structural fiscal burden.",
+    indicators:[["~220,000","direct municipal units (Gemeindewohnungen)"],["~200,000","additional subsidized cooperative units"],["~50%","of the population lives in subsidized housing"]],
+    measures:[["1920s","The 'Red Vienna' program begins: mass construction of Gemeindebauten."],["1980s","Large-scale direct municipal construction ends; continues via limited-profit cooperatives."],["Today","The city maintains its commitment never to sell the stock, with ongoing energy retrofits."]],
+    cite:"Sources: Housing Europe (2025); socialhousing.wien; AEI (2025)."
+  },
+  { key:"berlin", city:"Berlin", country:"Germany", score:2, color:"#9c3b2c", seed:[40,56,32,62,44],
+    authority:"Six state-owned housing companies (degewo, GEWOBAG, HOWOGE, STADT UND LAND, GESOBAU, WBM), overseen by the Senate Department for Urban Development, Building and Housing.",
+    authorityDesc:"Unlike Vienna, Berlin's public stock is not run by a single operator but by six state-owned companies coordinated through agreement; the former tenant-mediation body (Wohnraumversorgung Berlin) was restructured in 2024 as 'Sicheres Wohnen – AöR'.",
+    toolkit:"Attempted its own rent cap (Mietendeckel) and holds a citizen mandate, via referendum, to socialize large corporate landlords.",
+    outcome:"The Federal Constitutional Court annulled the rent cap as an overreach of federal competence; the expropriation referendum, despite 59.1% support, still has no implementing law five years on.",
+    indicators:[["361,636","units in public hands (2023), targeting 400,000 by 2026"],["59.1%","support for the expropriation referendum (2021, non-binding)"],["2021","year the Constitutional Court struck down the Mietendeckel"]],
+    measures:[["2020","The Mietendeckel, a regional rent cap, takes effect."],["2021","The Mietendeckel is struck down in court; the expropriation referendum passes with 59.1%."],["2024","An 'affordable rents' agreement with the six state-owned companies; the tenant-mediation body is restructured."],["2026","A second, binding referendum coincides with the state elections."]],
+    cite:"Sources: Bundesverfassungsgericht (2021); Berlin.de (2024); Verfassungsblog (2025)."
+  },
+  { key:"lisbon", city:"Lisbon", country:"Portugal", score:2, color:"#6b5b8a", seed:[36,50,28,58,40],
+    authority:"Gebalis, the municipal company managing Lisbon's municipal housing neighborhoods.",
+    authorityDesc:"Gebalis has managed the municipal stock since 1995; its scope is largely limited to rehabilitating the existing stock, while the highest-impact regulatory levers — Golden Visa, short-term rental — are decided at national level.",
+    toolkit:"Relies almost entirely on national law (Golden Visa, short-term rental regime); municipal competence limited to zoning-level containment of short-term rentals.",
+    outcome:"The national government reversed its own short-term rental freeze in 2024; Lisbon responded in December 2025 with municipal containment in saturated parishes, while rents keep climbing.",
+    indicators:[["66","municipal neighborhoods managed (~25,000 units)"],["~60,000","residents, over 10% of Lisbon's population"],["66.9%","short-term rental density in the most saturated parish"]],
+    measures:[["1995","Gebalis is created to manage the municipal neighborhoods."],["2023","End of the real-estate Golden Visa route; national freeze on new short-term rental licences ('Mais Habitação')."],["2024","'Morar Melhor' rehabilitation program launches; the national short-term rental freeze is reversed (DL 76/2024)."],["Dec 2025","Lisbon passes its own containment ordinance (RMAL) in saturated parishes."]],
+    cite:"Sources: Gebalis (2026); Cuatrecasas (2025); Câmara Municipal de Lisboa."
+  }
+];
+
+const scoreLabel = { 1:"Low", 2:"Medium", 3:"High" };
+
+function hexToRgba(hex, alpha){
+  const h = hex.replace('#','');
+  const r = parseInt(h.substring(0,2),16), g = parseInt(h.substring(2,4),16), b = parseInt(h.substring(4,6),16);
+  return `rgba(${r},${g},${b},${alpha})`;
+}
+
+function buildingSkyline(seed, score, color){
+  const w = 300, h = 110, base = h - 8;
+  const n = seed.length;
+  const gap = 6;
+  const bw = (w - gap*(n+1)) / n;
+  let bars = "";
+  seed.forEach((val,i)=>{
+    const bh = (val/70) * (base-20);
+    const x = gap + i*(bw+gap);
+    const y = base - bh;
+    bars += `<rect x="${x}" y="${y}" width="${bw}" height="${bh}" fill="none" stroke="rgba(239,232,214,0.35)" stroke-width="1.2"/>`;
+    const rows = Math.max(2, Math.floor(bh/14));
+    for(let r=1;r<rows;r++){
+      bars += `<line x1="${x}" y1="${y+r*(bh/rows)}" x2="${x+bw}" y2="${y+r*(bh/rows)}" stroke="rgba(239,232,214,0.12)" stroke-width="1"/>`;
+    }
+  });
+  const markerH = (score/3) * (base-14);
+  const markerW = bw*0.9;
+  const markerX = w - gap - markerW - 2;
+  const markerY = base - markerH;
+  bars += `<rect x="${markerX}" y="${markerY}" width="${markerW}" height="${markerH}" fill="${color}" opacity="0.9"/>`;
+  bars += `<line x1="0" y1="${base}" x2="${w}" y2="${base}" stroke="rgba(239,232,214,0.4)" stroke-width="1.4"/>`;
+  return `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">${bars}</svg>`;
+}
+
+const selector = document.getElementById('selector');
+const stage = document.getElementById('stage');
+const cityLegend = document.getElementById('cityLegend');
+
+cities.forEach((c) => {
+  const tile = document.createElement('button');
+  tile.className = 'tile';
+  tile.type = 'button';
+  tile.setAttribute('aria-pressed', 'false');
+  tile.style.setProperty('--city', c.color);
+  tile.style.setProperty('--city-soft', hexToRgba(c.color, 0.12));
+  tile.innerHTML = `${buildingSkyline(c.seed, c.score, c.color)}<div class="tile-name">${c.city}</div><div class="tile-country">${c.country}</div>`;
+  tile.addEventListener('click', () => selectCity(c.key));
+  tile.dataset.key = c.key;
+  selector.appendChild(tile);
+
+  const legendItem = document.createElement('span');
+  legendItem.innerHTML = `<i style="background:${c.color}"></i>${c.city}`;
+  cityLegend.appendChild(legendItem);
+});
+
+function selectCity(key){
+  const c = cities.find(x => x.key === key);
+  document.querySelectorAll('.tile').forEach(t => {
+    const active = t.dataset.key === key;
+    t.classList.toggle('active', active);
+    t.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
+
+  stage.style.setProperty('--city', c.color);
+  stage.style.setProperty('--city-soft', hexToRgba(c.color, 0.09));
+
+  const measuresHtml = c.measures.map(m => `<div class="measure-row"><div class="measure-year">${m[0]}</div><div class="measure-text">${m[1]}</div></div>`).join('');
+  const indicatorsHtml = c.indicators.map(ind => `<div class="indicator"><div class="indicator-value">${ind[0]}</div><div class="indicator-label">${ind[1]}</div></div>`).join('');
+
+  stage.innerHTML = `
+    <div class="stage-top">
+      <div>
+        <div class="stage-city">${c.city}</div>
+        <div class="stage-country">${c.country}</div>
+        <div class="authority-box">
+          <div class="authority-label">Housing authority</div>
+          <div class="authority-text"><strong>${c.authority}</strong><br>${c.authorityDesc}</div>
+        </div>
+      </div>
+      <div>
+        <div class="stage-illustration">${buildingSkyline(c.seed, c.score, c.color)}</div>
+        <div class="scale-note">The highlighted bar shows, on a qualitative scale (Low / Medium / High), the weight of public housing stock in this city: <strong>${scoreLabel[c.score]}</strong>. Not a figure directly comparable across cities.</div>
+      </div>
+    </div>
+
+    <div class="stage-grid">
+      <div>
+        <div class="block-label">Toolkit available</div>
+        <div class="toolkit-text">${c.toolkit}</div>
+      </div>
+      <div>
+        <div class="block-label">Outcome pattern</div>
+        <div class="outcome-text">${c.outcome}</div>
+      </div>
+    </div>
+
+    <div class="indicators">${indicatorsHtml}</div>
+
+    <div class="measures">
+      <div class="block-label">Measures adopted</div>
+      ${measuresHtml}
+    </div>
+
+    <div class="cite-box">${c.cite}</div>
+  `;
+  stage.setAttribute('data-anim','in');
+  requestAnimationFrame(()=> stage.removeAttribute('data-anim'));
+}
+
+selectCity(cities[0].key);
+</script>
+
+</body>
+</html>

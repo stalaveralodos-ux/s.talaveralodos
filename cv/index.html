@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Silvia Talavera Lodos — Policy & Research Analyst</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --navy-deep:#0d1c2b;
+  --navy:#152c40;
+  --navy-line: rgba(240,234,217,0.16);
+  --paper:#efe8d6;
+  --ink:#241f18;
+  --ink-soft:#4a4436;
+  --stamp:#9c3b2c;
+  --green:#49624b;
+  --gold:#b6852f;
+  --serif: 'Newsreader', Georgia, serif;
+  --sans: 'IBM Plex Sans', -apple-system, sans-serif;
+  --mono: 'IBM Plex Mono', 'Courier New', monospace;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{ margin:0; background:var(--navy-deep); color:var(--paper); font-family:var(--sans); line-height:1.55; }
+a{color:inherit;}
+
+/* ---------- HERO ---------- */
+header.hero{
+  position:relative; padding: 68px 24px 40px;
+  background: radial-gradient(circle at 85% 10%, rgba(182,133,47,0.12), transparent 45%), var(--navy-deep);
+  border-bottom: 1px solid var(--navy-line); overflow:hidden;
+}
+header.hero::before{
+  content:""; position:absolute; inset:0;
+  background-image: linear-gradient(var(--navy-line) 1px, transparent 1px), linear-gradient(90deg, var(--navy-line) 1px, transparent 1px);
+  background-size: 34px 34px; opacity:0.5;
+  mask-image: linear-gradient(to bottom, black, transparent 80%);
+}
+.hero-inner{ position:relative; max-width:920px; margin:0 auto; }
+.eyebrow{ font-family:var(--mono); font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); display:flex; align-items:center; gap:10px; margin-bottom:18px; }
+.eyebrow .dot{width:6px;height:6px;background:var(--gold);border-radius:50%;}
+h1.name{ font-family:var(--serif); font-weight:600; font-size:clamp(32px, 5.4vw, 54px); line-height:1.05; margin:0 0 8px; }
+.tagline{ font-family:var(--mono); font-size:14px; color:var(--gold); margin-bottom:18px; letter-spacing:0.01em; }
+.contact-row{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:22px; font-family:var(--mono); font-size:12px; }
+.contact-row a, .contact-row span{ border:1px solid var(--navy-line); padding:6px 12px; border-radius:2px; color:rgba(239,232,214,0.8); text-decoration:none; background:rgba(255,255,255,0.02); }
+.contact-row a:hover{ border-color: var(--gold); color:var(--gold); }
+.stats-row{ display:flex; flex-wrap:wrap; gap:14px; margin-top:8px; }
+.stat{ min-width:120px; }
+.stat-value{ font-family:var(--serif); font-size:22px; font-weight:600; color:var(--gold); line-height:1.1; }
+.stat-label{ font-family:var(--mono); font-size:10.5px; color:rgba(239,232,214,0.6); text-transform:uppercase; letter-spacing:0.04em; }
+
+/* ---------- TABS ---------- */
+.tabs-wrap{ max-width:1080px; margin:0 auto; padding: 0 24px; }
+.tabs{ display:flex; gap:8px; overflow-x:auto; padding: 24px 0 0; border-bottom:1px solid var(--navy-line); }
+.tab-btn{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:0.04em; text-transform:uppercase;
+  background:none; border:none; color:rgba(239,232,214,0.55); cursor:pointer;
+  padding: 10px 4px 14px; margin-right:22px; white-space:nowrap;
+  border-bottom:2px solid transparent; transition: color 0.15s ease, border-color 0.15s ease;
+}
+.tab-btn:hover{ color:var(--paper); }
+.tab-btn.active{ color:var(--gold); border-bottom-color:var(--gold); }
+.tab-btn:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+
+main{ max-width:1080px; margin:0 auto; padding: 34px 24px 70px; }
+.panel{ display:none; }
+.panel.active{ display:block; animation: fadeUp 0.22s ease; }
+@keyframes fadeUp{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+@media (prefers-reduced-motion: reduce){ .panel.active{ animation:none; } }
+
+.lede{ font-size:15.5px; color:rgba(239,232,214,0.78); max-width:68ch; margin: 0 0 28px; }
+
+/* ---------- ACCORDION CARDS (experience / leadership) ---------- */
+.card{
+  background:var(--paper); color:var(--ink); border-radius:3px; margin-bottom:12px;
+  box-shadow: 0 10px 26px -14px rgba(0,0,0,0.5); overflow:hidden; border-left:4px solid var(--gold);
+}
+.card.earlier{ border-left-color: rgba(182,133,47,0.35); }
+.card-head{
+  width:100%; background:none; border:none; text-align:left; cursor:pointer;
+  padding:18px 20px; display:flex; justify-content:space-between; align-items:center; gap:16px;
+  font-family:inherit; color:inherit;
+}
+.card-head:focus-visible{ outline:2px solid var(--gold); outline-offset:-2px; }
+.card-titles{ display:flex; flex-direction:column; gap:2px; }
+.card-role{ font-family:var(--serif); font-weight:600; font-size:18px; }
+.card-org{ font-family:var(--mono); font-size:11.5px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.03em; }
+.card-dates{ font-family:var(--mono); font-size:11.5px; color:var(--ink-soft); white-space:nowrap; }
+.card-arrow{ transition: transform 0.18s ease; color:var(--stamp); font-size:14px; flex-shrink:0; }
+.card.open .card-arrow{ transform: rotate(90deg); }
+.card-body{ max-height:0; overflow:hidden; transition: max-height 0.25s ease; }
+.card.open .card-body{ max-height:600px; }
+.card-body-inner{ padding: 0 20px 20px; border-top:1px dashed rgba(36,31,24,0.22); }
+.card-context{ font-style:italic; color:var(--ink-soft); font-size:13.5px; margin: 14px 0 10px; }
+.card-body-inner ul{ margin:0; padding-left:18px; }
+.card-body-inner li{ font-size:14px; color:var(--ink-soft); margin-bottom:8px; }
+@media (prefers-reduced-motion: reduce){ .card-arrow, .card-body{ transition:none; } }
+
+.earlier-label{ font-family:var(--mono); font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold); margin: 26px 0 12px; }
+
+/* ---------- EDUCATION ---------- */
+.edu-card{ background:var(--paper); color:var(--ink); border-radius:3px; padding:20px 22px; margin-bottom:12px; border-left:4px solid var(--green); }
+.edu-degree{ font-family:var(--serif); font-weight:600; font-size:18px; margin-bottom:2px; }
+.edu-org{ font-family:var(--mono); font-size:11.5px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.03em; margin-bottom:8px; }
+.edu-detail{ font-size:13.8px; color:var(--ink-soft); }
+.edu-year{ float:right; font-family:var(--mono); font-size:11.5px; color:var(--ink-soft); }
+
+/* ---------- PUBLICATIONS ---------- */
+.pub-filters{ display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
+.pub-chip{
+  font-family:var(--mono); font-size:11.5px; text-transform:uppercase; letter-spacing:0.03em;
+  padding:7px 14px; border-radius:14px; border:1px solid var(--navy-line); background:none; color:rgba(239,232,214,0.7);
+  cursor:pointer; transition: all 0.15s ease;
+}
+.pub-chip:hover{ border-color: var(--gold); color:var(--gold); }
+.pub-chip.active{ background:var(--gold); border-color:var(--gold); color:var(--navy-deep); font-weight:600; }
+.pub-item{ background:var(--paper); color:var(--ink); border-radius:3px; padding:16px 20px; margin-bottom:10px; border-left:4px solid var(--stamp); }
+.pub-item.type-book{ border-left-color: var(--green); }
+.pub-item.type-policy{ border-left-color: var(--gold); }
+.pub-title{ font-size:14.5px; line-height:1.4; }
+.pub-meta{ font-family:var(--mono); font-size:11px; color:var(--ink-soft); margin-top:6px; text-transform:uppercase; letter-spacing:0.02em; }
+
+/* ---------- SKILLS ---------- */
+.skills-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:24px; margin-bottom:30px; }
+@media (max-width:700px){ .skills-grid{ grid-template-columns:1fr; } }
+.skill-col-title{ font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:0.06em; color:var(--gold); margin-bottom:12px; }
+.skill-item{ font-size:14px; color:rgba(239,232,214,0.85); padding:8px 0; border-bottom:1px solid var(--navy-line); }
+
+.lang-row{ display:grid; grid-template-columns: 130px 1fr 40px; align-items:center; gap:12px; margin-bottom:12px; }
+.lang-name{ font-size:13.5px; }
+.lang-bar-track{ height:6px; background:var(--navy); border-radius:4px; overflow:hidden; }
+.lang-bar-fill{ height:100%; background:var(--gold); border-radius:4px; }
+.lang-level{ font-family:var(--mono); font-size:11px; color:rgba(239,232,214,0.6); text-align:right; }
+
+.chip-cloud{ display:flex; flex-wrap:wrap; gap:8px; }
+.tool-chip{ font-family:var(--mono); font-size:12px; padding:6px 12px; border:1px solid var(--navy-line); border-radius:2px; color:rgba(239,232,214,0.8); }
+
+/* ---------- FOOTER ---------- */
+footer{ border-top:1px solid var(--navy-line); padding: 36px 24px 50px; max-width:1080px; margin:0 auto; text-align:center; }
+footer p{ font-size:13px; color:rgba(239,232,214,0.55); margin: 0 0 14px; }
+footer a.back-link{ font-family:var(--mono); font-size:12px; color:var(--gold); text-decoration:none; border-bottom:1px dotted var(--gold); }
+
+::selection{ background:var(--gold); color:var(--navy-deep); }
+:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow"><span class="dot"></span>Curriculum vitae · interactive</div>
+    <h1 class="name">Silvia Talavera Lodos</h1>
+    <div class="tagline">Policy &amp; Research Analyst · Human Rights, Migration &amp; EU Governance</div>
+    <div class="contact-row">
+      <a href="mailto:s.talaveralodos@gmail.com">s.talaveralodos@gmail.com</a>
+      <span>Turin, Italy</span>
+      <span>Open to relocation: Brussels · Geneva · Berlin · Paris</span>
+      <a href="#" id="downloadLink">Download CV (PDF)</a>
+    </div>
+    <div class="stats-row">
+      <div class="stat"><div class="stat-value">PhD</div><div class="stat-label">Summa Cum Laude, 2026</div></div>
+      <div class="stat"><div class="stat-value">5</div><div class="stat-label">Languages</div></div>
+      <div class="stat"><div class="stat-value">8+</div><div class="stat-label">Publications &amp; policy outputs</div></div>
+      <div class="stat"><div class="stat-value">15+</div><div class="stat-label">Countries, IMISCOE network</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="tabs-wrap">
+  <nav class="tabs" id="tabs">
+    <button class="tab-btn active" data-panel="profile">Profile</button>
+    <button class="tab-btn" data-panel="experience">Experience</button>
+    <button class="tab-btn" data-panel="education">Education</button>
+    <button class="tab-btn" data-panel="publications">Publications</button>
+    <button class="tab-btn" data-panel="leadership">Leadership</button>
+    <button class="tab-btn" data-panel="skills">Skills</button>
+  </nav>
+</div>
+
+<main>
+
+  <section class="panel active" id="panel-profile">
+    <p class="lede">Policy and research analyst with expertise in EU governance, human rights, and migration policy. Skilled at translating legal and empirical research into policy recommendations, drafting high-quality briefings, and coordinating multi-partner EU-funded projects. Sustained engagement across EU institutions, academia, and civil society, with a strong independent research record. Multilingual and experienced in fast-paced, multicultural environments.</p>
+    <div class="skills-grid">
+      <div>
+        <div class="skill-col-title">Core competencies</div>
+        <div class="skill-item">EU policy monitoring &amp; legislative tracking</div>
+        <div class="skill-item">Comparative legal &amp; policy research</div>
+        <div class="skill-item">Policy writing: briefings, position papers, executive summaries</div>
+        <div class="skill-item">Stakeholder engagement &amp; coalition coordination</div>
+      </div>
+      <div>
+        <div class="skill-col-title">Research &amp; methods</div>
+        <div class="skill-item">Qualitative &amp; mixed-methods fieldwork</div>
+        <div class="skill-item">EU project management (Horizon Europe, MSCA)</div>
+        <div class="skill-item">Statistical &amp; qualitative analysis (see Skills tab)</div>
+        <div class="skill-item">Grant &amp; proposal writing</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-experience">
+    <p class="lede">Reverse-chronological. Tap a role to open the case detail.</p>
+    <div id="expCards"></div>
+    <div class="earlier-label">Earlier experience</div>
+    <div id="expEarlierCards"></div>
+  </section>
+
+  <section class="panel" id="panel-education">
+    <div id="eduCards"></div>
+  </section>
+
+  <section class="panel" id="panel-publications">
+    <div class="pub-filters" id="pubFilters"></div>
+    <div id="pubList"></div>
+  </section>
+
+  <section class="panel" id="panel-leadership">
+    <div id="leadCards"></div>
+  </section>
+
+  <section class="panel" id="panel-skills">
+    <div class="skill-col-title">Languages</div>
+    <div id="langBars" style="margin-bottom:30px;"></div>
+    <div class="skills-grid">
+      <div>
+        <div class="skill-col-title">Core competencies</div>
+        <div class="skill-item">EU policy monitoring &amp; legislative tracking</div>
+        <div class="skill-item">Comparative legal &amp; policy research</div>
+        <div class="skill-item">Policy writing: briefings, position papers, executive summaries</div>
+        <div class="skill-item">Stakeholder engagement &amp; coalition coordination</div>
+        <div class="skill-item">Qualitative &amp; mixed-methods fieldwork</div>
+        <div class="skill-item">EU project management (Horizon Europe, MSCA)</div>
+      </div>
+      <div>
+        <div class="skill-col-title">Technical tools</div>
+        <div class="chip-cloud" id="toolChips"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>Built as part of the same repository as the comparative housing policy panel.</p>
+  <a class="back-link" href="../housing/">← Back to the municipal housing repository</a>
+</footer>
+
+<script>
+// ---------------- DATA ----------------
+const experience = [
+  { role:"Research Collaborator", org:"Scuola Superiore Sant'Anna, Pisa", dates:"Apr 2026 – present",
+    context:"Horizon Europe project on the normative foundations of the EU social contract",
+    bullets:[
+      "Authors policy-oriented research on fundamental rights and constitutional resilience under democratic stress, contributing to deliverables for a multi-partner EU-funded consortium.",
+      "Leads dissemination activities, including academic seminars and public-facing publications."
+    ]},
+  { role:"Policy Officer Assistant", org:"Delegation of the Canary Islands to the EU, Brussels", dates:"Nov 2021 – Nov 2022",
+    context:"Regional government representation within EU institutional processes",
+    bullets:[
+      "Authored policy briefings and legislative analyses on EU social, environmental, and regional policy files for senior government representatives.",
+      "Tracked legislative developments across the European Commission, European Parliament, and Committee of the Regions, flagging implications for regional authorities.",
+      "Built and maintained working relationships with EU officials and civil society organisations, supporting institutional advocacy on regional interests."
+    ]},
+  { role:"Research Assistant", org:"Amnesty International, Las Palmas de Gran Canaria", dates:"Feb – May 2021",
+    context:"Fieldwork on housing and detention conditions for foreign nationals",
+    bullets:[
+      "Led field research and stakeholder consultations with migrants, civil society organisations, and institutional actors on housing access and detention conditions.",
+      "Authored evidence-based analyses that fed directly into national and international advocacy on migration governance."
+    ]},
+];
+
+const earlierExperience = [
+  { role:"Research Assistant", org:"Mining Watch Canada (remote)", dates:"Apr – Jul 2020",
+    context:"Comparative analysis of non-judicial grievance mechanisms in extractive industries",
+    bullets:["Synthesised international human rights jurisprudence and domestic regulatory frameworks on non-judicial grievance mechanisms across Latin American jurisdictions."]},
+  { role:"Audit Assistant", org:"AUDIATLANTICA SL, Las Palmas de Gran Canaria", dates:"Sep 2018 – Aug 2019",
+    context:"",
+    bullets:["Conducted financial analysis and regulatory research for public-sector entities."]},
+];
+
+const education = [
+  { degree:"PhD in Human Rights and Global Politics", org:"Scuola Superiore Sant'Anna, Pisa", year:"2026",
+    detail:"Awarded Summa Cum Laude · Supervisor: Prof. Giuseppe Martinico. Comparative fieldwork across Italy, Spain, and Greece on the implementation of social rights within multilevel governance systems." },
+  { degree:"MA in Law", org:"Universitat Oberta de Catalunya", year:"2022",
+    detail:"Thesis on national and international jurisdiction in atrocity crime cases." },
+  { degree:"MA in Human Rights, Democracy and Globalisation", org:"Universitat Oberta de Catalunya", year:"2020", detail:"" },
+  { degree:"Double Bachelor's Degree in Law and Business Economics", org:"Universidad de Las Palmas de Gran Canaria", year:"2018",
+    detail:"Exchange semester, Università di Bologna (Feb–Jul 2017)." },
+];
+
+const publications = [
+  { title:"\u201CA Test for Spain: Unaccompanied Minors and Territorial Solidarity,\u201D European Public Law (forthcoming).", type:"peer" },
+  { title:"\u201CIndefinite Detention of Refugees Ruled Unconstitutional by the High Court of Australia,\u201D Perspectives on Federalism, Vol. 15 (2023/24) [with J. Gardiner].", type:"peer" },
+  { title:"\u201CReframing Special Protection and Immigration as an Emergency: Italy\u2019s Not-So-Novel Approach,\u201D Italian Review of International and Comparative Law, 3(2), 2023.", type:"peer" },
+  { title:"\u201CPushing the Frontier: The Right Not to Move in Comparative Constitutional Perspective,\u201D in Windy Roads (ed. D. Spieker), forthcoming [with G. Martinico].", type:"book" },
+  { title:"\u201CEquality between Women and Men in EU Law and Legal Practice,\u201D in Unwrapping Article 2 TEU, Cambridge University Press (forthcoming).", type:"book" },
+  { title:"\u201CRight to Shelter: Inside Spain\u2019s Foreigners Detention Centres,\u201D in Everyday Bordering in Migrants\u2019 Access to Rights, Palgrave Macmillan, 2025.", type:"book" },
+  { title:"Op-Ed: \u201CConstitutionalising Demography and the Future of Swiss-EU Bilateralism,\u201D EU Law Live, March 2026.", type:"policy" },
+  { title:"\u201CIl conflitto tra regione e Stato sulla situazione dei minori stranieri non accompagnati nelle Isole Canarie,\u201D Diritti Comparati, 2024.", type:"policy" },
+];
+const pubTypeLabel = { peer:"Peer-reviewed", book:"Book chapter", policy:"Policy writing" };
+
+const leadership = [
+  { role:"Programme Coordinator", org:"IMISCOE Buddy System", dates:"2023 – 2025", context:"",
+    bullets:["Designed and managed a transnational mentoring programme for early-career researchers across 15+ European countries, overseeing recruitment, matching, and evaluation."]},
+  { role:"Vice-Chair, PhD Network Board", org:"IMISCOE International Migration Research Network", dates:"2024 – 2025", context:"",
+    bullets:["Represented doctoral researchers in governance and strategic planning for Europe's largest migration research network.", "Facilitated communication between network leadership and members across multiple countries."]},
+  { role:"Contributing Editor", org:"I\u00B7CON: International Journal of Constitutional Law (OUP)", dates:"Ongoing", context:"",
+    bullets:["Authors regular analytical summaries of global constitutional law developments for an international scholarly readership (Q1 journal)."]},
+  { role:"Social Media Coordinator", org:"Association for Borderlands Studies (ABS)", dates:"2026 – present", context:"",
+    bullets:["Leads institutional communication and digital outreach for a leading international academic association in border and migration studies."]},
+  { role:"Peer Reviewer", org:"5+ leading journals in constitutional and human rights law", dates:"Ongoing", context:"", bullets:[] },
+];
+
+const languages = [
+  { name:"Spanish", level:"Native", pct:100 },
+  { name:"English", level:"C1", pct:85 },
+  { name:"Italian", level:"C1", pct:85 },
+  { name:"French", level:"B2", pct:65 },
+  { name:"German", level:"B1", pct:45 },
+];
+
+const tools = ["R","Stata","SPSS","Python","Power BI","Tableau","Excel (advanced)","NVivo","MAXQDA","Access","SQL (basic)"];
+
+// ---------------- RENDER ----------------
+function renderCards(list, container, earlier=false){
+  list.forEach((item) => {
+    const card = document.createElement('div');
+    card.className = 'card' + (earlier ? ' earlier' : '');
+    card.innerHTML = `
+      <button class="card-head" aria-expanded="false">
+        <div class="card-titles">
+          <div class="card-role">${item.role}</div>
+          <div class="card-org">${item.org}</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:14px;">
+          <div class="card-dates">${item.dates}</div>
+          <div class="card-arrow">${item.bullets.length ? '→' : ''}</div>
+        </div>
+      </button>
+      ${item.bullets.length ? `<div class="card-body"><div class="card-body-inner">
+        ${item.context ? `<div class="card-context">${item.context}</div>` : ''}
+        <ul>${item.bullets.map(b => `<li>${b}</li>`).join('')}</ul>
+      </div></div>` : ''}
+    `;
+    const head = card.querySelector('.card-head');
+    if(item.bullets.length){
+      head.addEventListener('click', () => {
+        const open = card.classList.toggle('open');
+        head.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    } else {
+      head.style.cursor = 'default';
+    }
+    container.appendChild(card);
+  });
+}
+renderCards(experience, document.getElementById('expCards'));
+renderCards(earlierExperience, document.getElementById('expEarlierCards'), true);
+renderCards(leadership, document.getElementById('leadCards'));
+
+const eduContainer = document.getElementById('eduCards');
+education.forEach(e => {
+  const card = document.createElement('div');
+  card.className = 'edu-card';
+  card.innerHTML = `
+    <div class="edu-year">${e.year}</div>
+    <div class="edu-degree">${e.degree}</div>
+    <div class="edu-org">${e.org}</div>
+    ${e.detail ? `<div class="edu-detail">${e.detail}</div>` : ''}
+  `;
+  eduContainer.appendChild(card);
+});
+
+function renderPubs(filter){
+  const list = document.getElementById('pubList');
+  list.innerHTML = '';
+  publications.filter(p => filter === 'all' || p.type === filter).forEach(p => {
+    const item = document.createElement('div');
+    item.className = `pub-item type-${p.type === 'peer' ? 'peer' : p.type}`;
+    item.innerHTML = `<div class="pub-title">${p.title}</div><div class="pub-meta">${pubTypeLabel[p.type]}</div>`;
+    list.appendChild(item);
+  });
+}
+const pubFilters = document.getElementById('pubFilters');
+[["all","All"],["peer","Peer-reviewed"],["book","Book chapters"],["policy","Policy writing"]].forEach(([key,label], i) => {
+  const chip = document.createElement('button');
+  chip.className = 'pub-chip' + (i === 0 ? ' active' : '');
+  chip.textContent = label;
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.pub-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    renderPubs(key);
+  });
+  pubFilters.appendChild(chip);
+});
+renderPubs('all');
+
+const langBars = document.getElementById('langBars');
+languages.forEach(l => {
+  const row = document.createElement('div');
+  row.className = 'lang-row';
+  row.innerHTML = `
+    <div class="lang-name">${l.name}</div>
+    <div class="lang-bar-track"><div class="lang-bar-fill" style="width:${l.pct}%"></div></div>
+    <div class="lang-level">${l.level}</div>
+  `;
+  langBars.appendChild(row);
+});
+
+const toolChips = document.getElementById('toolChips');
+tools.forEach(t => {
+  const chip = document.createElement('span');
+  chip.className = 'tool-chip';
+  chip.textContent = t;
+  toolChips.appendChild(chip);
+});
+
+// ---------------- TABS ----------------
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-' + btn.dataset.panel).classList.add('active');
+  });
+});
+
+// download link placeholder — point to the CV file once uploaded alongside this page
+document.getElementById('downloadLink').addEventListener('click', (e) => {
+  e.preventDefault();
+  alert('Add your CV PDF/DOCX to this folder and update the href of this button to point to it (e.g. "CV_TalaveraLodos.pdf").');
+});
+</script>
+
+</body>
+</html>

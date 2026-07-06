@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-
+<div class="progress-bar" id="progressBar"></div>
 <!-- ===== Texture / noise overlay ===== -->
 <div class="grain" aria-hidden="true"></div>
 
@@ -23,11 +23,21 @@
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
       <a href="#publications">List of Publications</a>
+      <div class="pub-search-wrap">
+  <input type="text" id="pubSearch" class="pub-search" placeholder="Filtrar por título, año o tema (ej. 'migración', '2024', 'EU')...">
+  <span class="pub-search-count" id="pubSearchCount"></span>
+</div>
       <a href="#briefs">Policy Briefs</a>
       <a href="#contact">Contact</a>
     </nav>
     <!-- TODO: replace assets/CV_Talavera_Lodos.pdf with your real CV PDF before publishing -->
-    <a class="cv-link" href="assets/CV_Talavera_Lodos.pdf" target="_blank" rel="noopener">Download CV ↓</a>
+    <a class="cv-link" href="assets/CV_Talavera_Lodos.pdf" target="_blank" rel="noopener">Download CV <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema" title="Cambiar tema claro/oscuro">
+  <svg id="themeIcon" viewBox="0 0 24 24" stroke-width="1.6">
+    <circle cx="12" cy="12" r="4"></circle>
+    <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
+  </svg>
+</button>
+<span class="cmdk-tip" id="cmdkTip">⌘K</span> ↓</a>
   </div>
 </header>
 
@@ -81,7 +91,39 @@
       </div>
     </div>
   </section>
+<section id="journey" class="section journey">
+  <div class="section-head">
+    <span class="section-num">—</span>
+    <h2>Research Journey</h2>
+  </div>
+  <div class="journey-map-wrap">
+    <svg viewBox="0 0 800 320" class="journey-map" role="img" aria-label="Mapa de trayectoria de investigación">
+      <path d="M120,80 L280,180 L440,120 L600,200 L680,90" class="journey-line" />
 
+      <g class="journey-node" data-city="Pisa" data-detail="PhD, Scuola Superiore Sant'Anna (2021–2025)">
+        <circle cx="120" cy="80" r="9"/>
+        <text x="120" y="60" text-anchor="middle">Pisa</text>
+      </g>
+      <g class="journey-node" data-city="Turin" data-detail="Fieldwork: municipal social rights case study">
+        <circle cx="280" cy="180" r="9"/>
+        <text x="280" y="205" text-anchor="middle">Turin</text>
+      </g>
+      <g class="journey-node" data-city="Barcelona" data-detail="Fieldwork: municipal social rights case study">
+        <circle cx="440" cy="120" r="9"/>
+        <text x="440" y="100" text-anchor="middle">Barcelona</text>
+      </g>
+      <g class="journey-node" data-city="Athens" data-detail="Fieldwork: municipal social rights case study">
+        <circle cx="600" cy="200" r="9"/>
+        <text x="600" y="225" text-anchor="middle">Athens</text>
+      </g>
+      <g class="journey-node" data-city="Brussels" data-detail="Policy Officer Assistant, Delegation of the Canary Islands to the EU">
+        <circle cx="680" cy="90" r="9"/>
+        <text x="680" y="70" text-anchor="middle">Brussels</text>
+      </g>
+    </svg>
+    <p class="journey-detail" id="journeyDetail">Pasa el cursor sobre una ciudad para ver el detalle.</p>
+  </div>
+</section>
   <!-- ===== Experience ===== -->
   <section id="experience" class="section experience">
     <div class="section-head">

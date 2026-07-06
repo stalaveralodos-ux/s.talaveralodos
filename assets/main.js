@@ -1,4 +1,9 @@
-/* ---------- 1. Modo claro/oscuro ---------- */
+/* ============================================================
+   main.js — toda la interactividad del sitio en un solo archivo
+   Cargado al final de <body> con: <script src="assets/main.js"></script>
+   ============================================================ */
+
+/* ---------- Modo claro/oscuro ---------- */
 (function themeInit() {
   const stored = localStorage.getItem('theme');
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -16,7 +21,7 @@
   }
 })();
 
-/* ---------- 2. Barra de progreso + scroll reveal ---------- */
+/* ---------- Barra de progreso + scroll reveal ---------- */
 (function scrollEffects() {
   const bar = document.getElementById('progressBar');
   if (bar) {
@@ -36,13 +41,13 @@
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.12 });
 
     revealEls.forEach(el => observer.observe(el));
   }
 })();
 
-/* ---------- 3. Buscador de publicaciones ---------- */
+/* ---------- Buscador de publicaciones ---------- */
 (function pubSearch() {
   const searchInput = document.getElementById('pubSearch');
   const countEl = document.getElementById('pubSearchCount');
@@ -59,13 +64,13 @@
       item.classList.toggle('hidden', !match);
       if (match) visible++;
     });
-    countEl.textContent = q ? `${visible} de ${items.length}` : '';
+    countEl.textContent = q ? `${visible} of ${items.length}` : '';
   }
 
   searchInput.addEventListener('input', filterPubs);
 })();
 
-/* ---------- 4. Botón copiar cita BibTeX ---------- */
+/* ---------- Botón copiar cita BibTeX ---------- */
 (function citeCopy() {
   document.querySelectorAll('.cite-btn').forEach(btn => {
     btn.addEventListener('click', async () => {
@@ -86,22 +91,7 @@
   });
 })();
 
-/* ---------- 5. Mapa de trayectoria (SVG) ---------- */
-(function journeyMap() {
-  const nodes = document.querySelectorAll('.journey-node');
-  const detailEl = document.getElementById('journeyDetail');
-  if (!nodes.length || !detailEl) return;
-
-  nodes.forEach(node => {
-    node.addEventListener('mouseenter', () => {
-      nodes.forEach(n => n.classList.remove('active'));
-      node.classList.add('active');
-      detailEl.textContent = `${node.dataset.city} — ${node.dataset.detail}`;
-    });
-  });
-})();
-
-/* ---------- 6. Command palette (Cmd+K) ---------- */
+/* ---------- Command palette (Cmd+K) ---------- */
 (function commandPalette() {
   const overlay = document.getElementById('cmdkOverlay');
   const input = document.getElementById('cmdkInput');
@@ -111,11 +101,10 @@
   const routes = [
     { label: 'About', hint: 'section', href: '#about' },
     { label: 'Experience', hint: 'section', href: '#experience' },
+    { label: 'Education', hint: 'section', href: '#education' },
     { label: 'List of Publications', hint: 'section', href: '#publications' },
-    { label: 'Policy Briefs', hint: 'section', href: '#briefs' },
-    { label: 'Research Journey', hint: 'section', href: '#journey' },
     { label: 'Contact', hint: 'section', href: '#contact' },
-    { label: 'Download CV (PDF)', hint: 'file', href: 'assets/CV_Talavera_Lodos.pdf' },
+    { label: 'Linktree', hint: 'link', href: 'https://linktr.ee/s.talaveralodos' },
   ];
 
   let activeIndex = 0;
@@ -187,7 +176,6 @@
     if (e.target === overlay) closePalette();
   });
 
-  // Botón visible "⌘K" en la topbar, si existe
   const tip = document.getElementById('cmdkTip');
   if (tip) tip.addEventListener('click', openPalette);
 })();

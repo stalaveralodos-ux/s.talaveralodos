@@ -319,3 +319,225 @@ ul{ list-style:none; margin:0; padding:0; }
   text-align: center;
 }
 .sitefoot p{ font-family: var(--mono); font-size: 11.5px; color: rgba(250,247,241,0.45); }
+/* ============================================================
+   ADICIONES AL SITE — pegar todo esto al final de assets/style.css
+   ============================================================ */
+
+/* ---------- 1. Modo claro/oscuro ---------- */
+:root {
+  --bg: #f7f4ee;
+  --bg-alt: #ffffff;
+  --text: #1a1a1a;
+  --text-muted: #5a5a5a;
+  --accent: #7a2e2e; /* ajusta a tu color de acento actual */
+  --border: #dcd6c8;
+}
+
+[data-theme="dark"] {
+  --bg: #14140f;
+  --bg-alt: #1c1c16;
+  --text: #ece7da;
+  --text-muted: #a8a196;
+  --accent: #d98a5f;
+  --border: #33322a;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background-color .4s ease, color .4s ease;
+}
+
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 999px;
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform .3s ease, border-color .3s ease;
+}
+.theme-toggle:hover { transform: rotate(20deg); border-color: var(--accent); }
+.theme-toggle svg { width: 18px; height: 18px; stroke: currentColor; fill: none; }
+
+/* ---------- 2. Barra de progreso + scroll reveal ---------- */
+.progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  width: 0%;
+  background: var(--accent);
+  z-index: 999;
+  transition: width .1s linear;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- 3. Buscador de publicaciones ---------- */
+.pub-search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0;
+}
+.pub-search {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-alt);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+}
+.pub-search:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.pub-search-count {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.pub-item.hidden { display: none; }
+
+/* ---------- 4. Botón copiar cita BibTeX ---------- */
+.cite-btn {
+  margin-top: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+.cite-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.cite-btn.copied {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ---------- 5. Mapa de trayectoria (SVG) ---------- */
+.journey-map-wrap { position: relative; }
+.journey-map { width: 100%; height: auto; overflow: visible; }
+
+.journey-line {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 4;
+}
+
+.journey-node circle {
+  fill: var(--bg-alt);
+  stroke: var(--accent);
+  stroke-width: 2;
+  cursor: pointer;
+  transition: r .2s ease, fill .2s ease;
+}
+.journey-node:hover circle,
+.journey-node.active circle {
+  r: 13;
+  fill: var(--accent);
+}
+.journey-node text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  fill: var(--text-muted);
+  pointer-events: none;
+}
+
+.journey-detail {
+  margin-top: 16px;
+  font-family: 'Source Serif 4', serif;
+  font-style: italic;
+  color: var(--text-muted);
+  min-height: 1.4em;
+  transition: opacity .2s ease;
+}
+
+/* ---------- 6. Command palette (Cmd+K) ---------- */
+.cmdk-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(3px);
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 12vh;
+  z-index: 1000;
+}
+.cmdk-overlay.open { display: flex; }
+
+.cmdk-box {
+  width: min(560px, 90vw);
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+.cmdk-input {
+  width: 100%;
+  padding: 16px 18px;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+}
+.cmdk-input:focus { outline: none; }
+
+.cmdk-list { list-style: none; margin: 0; padding: 6px; max-height: 300px; overflow-y: auto; }
+.cmdk-list li {
+  padding: 10px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+}
+.cmdk-list li.active,
+.cmdk-list li:hover {
+  background: var(--accent);
+  color: #fff;
+}
+.cmdk-hint {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  opacity: 0.7;
+}
+.cmdk-tip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 6px;
+  color: var(--text-muted);
+  cursor: pointer;
+}

@@ -65,7 +65,12 @@
     <div class="about-grid">
       <div class="about-text">
         <p>I am a recently graduated PhD researcher working at the intersection of constitutional law, urban governance, and human rights. My doctoral thesis — <em>The Constitutional Role of Municipalities in the Governance of Social Rights</em> — compared how Turin, Barcelona, and Athens translate the rights to education, health, and housing into administrative practice, under the supervision of Prof. Giuseppe Martinico.</p>
-        <p>I work fluidly across Spanish, Italian, and English, with reading knowledge of French and German — and I am currently directing that range toward European policy and international‑organisation roles in migration and human rights.</p>
+         <p>I work fluidly across Spanish, Italian, French and English, with reading knowledge of German — and I am currently directing that range toward European policy and international‑organisation roles.</p>
+        <a href="https://stalaveralodos-ux.github.io/housing-rights-spain/" target="_blank" rel="noopener" class="research-project-link">
+          <span class="rpl-eyebrow">Data project ↗</span>
+          <span class="rpl-title">El vacío del alquiler social — Spain in the European context</span>
+          <span class="rpl-desc">An interactive policy brief comparing Spain's social housing stock with the EU and across autonomous communities, extending the doctoral thesis's core question to open public data.</span>
+        </a>
       </div>
       <div class="about-facts">
         <dl>
@@ -78,53 +83,6 @@
     </div>
   </section>
 
-  /* ===== Data project link card (About section) =====
-   Accent color kept independent of the site's main palette (pine/ochre)
-   on purpose — it marks this as a distinct "data project" entry point.
-   Currently set to a vivid cobalt blue. To swap to pink instead,
-   change every --rpl-accent value below to: #c1487a
-*/
-.research-project-link{
-  --rpl-accent: #2f5fd6;
-  display: block;
-  margin-top: 24px;
-  padding: 18px 22px;
-  background: var(--cream-card);
-  border: 1px solid var(--line);
-  border-left: 3px solid var(--rpl-accent);
-  border-radius: 0 6px 6px 0;
-  text-decoration: none;
-  color: var(--ink);
-  transition: border-color .15s ease, transform .15s ease, box-shadow .15s ease;
-}
-.research-project-link:hover{
-  border-left-color: var(--rpl-accent);
-  transform: translateX(2px);
-  box-shadow: 0 4px 16px rgba(47,95,214,0.12);
-}
-.rpl-eyebrow{
-  display: block;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  color: var(--rpl-accent);
-  margin-bottom: 6px;
-}
-.rpl-title{
-  display: block;
-  font-family: 'Source Serif 4', serif;
-  font-weight: 600;
-  font-size: 16.5px;
-  margin-bottom: 6px;
-}
-.rpl-desc{
-  display: block;
-  font-size: 13.5px;
-  color: var(--ink);
-  opacity: .75;
-  line-height: 1.5;
-}
   
   <!-- ===== Experience ===== -->
   <section id="experience" class="section experience reveal">

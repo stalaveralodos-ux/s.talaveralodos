@@ -413,3 +413,50 @@ ul{ list-style:none; margin:0; padding:0; }
   font-size: 10.5px;
   opacity: 0.7;
 }
+/* ===== Data project link card (About section) =====
+   Accent color kept independent of the site's main palette (pine/ochre)
+   on purpose — it marks this as a distinct "data project" entry point.
+   Currently set to a vivid cobalt blue. To swap to pink instead,
+   change every --rpl-accent value below to: #c1487a
+*/
+.research-project-link{
+  --rpl-accent: #2f5fd6;
+  display: block;
+  margin-top: 24px;
+  padding: 18px 22px;
+  background: var(--cream-card);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--rpl-accent);
+  border-radius: 0 6px 6px 0;
+  text-decoration: none;
+  color: var(--ink);
+  transition: border-color .15s ease, transform .15s ease, box-shadow .15s ease;
+}
+.research-project-link:hover{
+  border-left-color: var(--rpl-accent);
+  transform: translateX(2px);
+  box-shadow: 0 4px 16px rgba(47,95,214,0.12);
+}
+.rpl-eyebrow{
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--rpl-accent);
+  margin-bottom: 6px;
+}
+.rpl-title{
+  display: block;
+  font-family: 'Source Serif 4', serif;
+  font-weight: 600;
+  font-size: 16.5px;
+  margin-bottom: 6px;
+}
+.rpl-desc{
+  display: block;
+  font-size: 13.5px;
+  color: var(--ink);
+  opacity: .75;
+  line-height: 1.5;
+}

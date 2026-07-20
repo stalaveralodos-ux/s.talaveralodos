@@ -101,9 +101,16 @@
   const routes = [
     { label: 'About', hint: 'section', href: '#about' },
     { label: 'Experience', hint: 'section', href: '#experience' },
+    { label: 'Visiting Periods', hint: 'section', href: '#visiting' },
     { label: 'Education', hint: 'section', href: '#education' },
+    { label: 'Teaching Experience', hint: 'section', href: '#teaching' },
     { label: 'List of Publications', hint: 'section', href: '#publications' },
+    { label: 'Research Funding & Grant Preparation', hint: 'section', href: '#research-funding' },
+    { label: 'Research Methods & Digital Competencies', hint: 'section', href: '#research-methods' },
     { label: 'Institutional & Leadership Roles', hint: 'section', href: '#leadership' },
+    { label: 'Membership in Professional Networks', hint: 'section', href: '#networks' },
+    { label: 'Selected Conferences & Seminars', hint: 'section', href: '#conferences' },
+    { label: 'Selected Courses & Training', hint: 'section', href: '#courses' },
     { label: 'Contact', hint: 'section', href: '#contact' },
     { label: 'Linktree', hint: 'link', href: 'https://linktr.ee/s.talaveralodos' },
   ];

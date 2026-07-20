@@ -1,0 +1,5 @@
+title: "Silvia Talavera Lodos"
+description: "Portfolio of Silvia Talavera Lodos"
+
+# Plain HTML pages only, no markdown processing needed beyond front matter/includes.
+markdown: kramdown

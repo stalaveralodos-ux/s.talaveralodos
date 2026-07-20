@@ -103,6 +103,7 @@
     { label: 'Experience', hint: 'section', href: '#experience' },
     { label: 'Education', hint: 'section', href: '#education' },
     { label: 'List of Publications', hint: 'section', href: '#publications' },
+    { label: 'Institutional & Leadership Roles', hint: 'section', href: '#leadership' },
     { label: 'Contact', hint: 'section', href: '#contact' },
     { label: 'Linktree', hint: 'link', href: 'https://linktr.ee/s.talaveralodos' },
   ];

@@ -142,6 +142,29 @@ ul{ list-style:none; margin:0; padding:0; }
   text-transform: uppercase; color: var(--terracotta); font-weight: 500;
   margin-bottom: 22px; display:block;
 }
+.hero-identity{
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 3vw, 28px);
+}
+.hero-avatar{
+  position: relative;
+  width: clamp(72px, 9vw, 104px);
+  height: clamp(72px, 9vw, 104px);
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 2px solid var(--line);
+  background: var(--paper-deep);
+}
+.hero-avatar img{
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.hero-avatar-fallback{
+  display: none;
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg, var(--paper-deep), var(--line));
+}
 .hero-title{
   font-size: clamp(42px, 7vw, 72px); line-height: 1.02; font-weight: 600;
   letter-spacing: -0.01em; color: var(--navy);
@@ -187,9 +210,15 @@ ul{ list-style:none; margin:0; padding:0; }
   color: var(--ink-soft); margin-top: 8px; line-height: 1.5;
 }
 
+.hero-keyword-list{ margin: 4px 0 20px; padding-left: 22px; max-width: 640px; }
+.hero-keyword-list li{ font-size: 16px; color: var(--ink); opacity: .88; line-height: 1.6; margin-bottom: 10px; }
+.hero-keyword-list li::marker{ color: var(--terracotta); }
+.hero-keyword-list li:last-child{ margin-bottom: 0; }
+.hero-keyword-list strong{ color: var(--navy); font-weight: 600; opacity: 1; }
+.hero-cta-line{ font-family: var(--serif); font-style: italic; color: var(--navy); opacity: 1 !important; }
+
 @media (max-width: 760px){
   .hero{ padding-top: clamp(48px, 8vw, 80px); }
-  .hero-stats{ gap: 28px; }
 }
 
 /* ---------- sections, generic ---------- */
@@ -268,6 +297,21 @@ ul{ list-style:none; margin:0; padding:0; }
 .exp-bullets li{ font-size: 13.5px; color: var(--ink-soft); line-height: 1.65; margin-bottom: 6px; }
 .exp-bullets li::marker{ color: var(--terracotta); }
 .exp-bullets li:last-child{ margin-bottom: 0; }
+
+.exp-keywords{
+  list-style: none;
+  display: flex; flex-wrap: wrap; gap: 6px 8px;
+  margin: 10px 0 0; padding: 0;
+}
+.exp-keywords li{
+  font-family: var(--mono); font-size: 11px; letter-spacing: .02em;
+  color: var(--navy);
+  background: var(--paper-deep);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 4px 9px;
+  line-height: 1.4;
+}
 
 @media (max-width: 600px){
   .exp-item{ grid-template-columns: 1fr; gap: 4px; }
@@ -572,7 +616,8 @@ ul{ list-style:none; margin:0; padding:0; }
   font-family: 'Source Serif 4', serif;
   font-weight: 600;
   font-size: 16.5px;
-  margin-bottom: 6px;
+  margin-bottom: 2px;
+  line-height: 1.35;
 }
 .rpl-desc{
   display: block;

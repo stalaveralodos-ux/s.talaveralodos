@@ -5,21 +5,22 @@
    ============================================================ */
 
 :root{
-  /* Paleta renovada: verde pino editorial + ocre cálido, en vez de navy + terracotta */
-  --paper:      #F8F4EA;
-  --paper-deep: #EFE7D3;
-  --ink:        #221F1B;
-  --ink-soft:   #5C564C;
-  --navy:       #1F3B36;   /* antes azul marino → ahora verde pino profundo */
-  --navy-deep:  #142825;
-  --terracotta: #C97A3D;   /* antes terracota rojiza → ahora ocre cálido */
-  --terracotta-soft: #D99A63;
-  --bottle:     #3F6E52;
-  --line:       #E1D8C0;
-  --line-soft:  #ECE4D2;
+  /* Paleta reimaginada a partir del moodboard "estanque de lotos":
+     verde bosque profundo + rosa apagado como acento cálido + beige cálido de fondo */
+  --paper:      #F7F4D5;
+  --paper-deep: #EDE8C4;
+  --ink:        #16241C;
+  --ink-soft:   #556359;
+  --navy:       #0A3323;   /* Dark green — títulos y estructura */
+  --navy-deep:  #062218;
+  --terracotta: #D3968C;   /* Rosy brown — acento cálido, antes ocre */
+  --terracotta-soft: #E0B3AC;
+  --bottle:     #839958;   /* Moss green — verde secundario */
+  --line:       #E0DAB4;
+  --line-soft:  #ECE7C9;
   --cream-card: #FFFFFF;
-  --topbar-bg:  rgba(248,244,234,0.88);
-  --num-light:  rgba(248,244,234,0.65);
+  --topbar-bg:  rgba(247,244,213,0.88);
+  --num-light:  rgba(247,244,213,0.65);
 
   --serif: "Source Serif 4", Georgia, serif;
   --sans:  "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -31,20 +32,20 @@
 
 /* ---------- modo oscuro ---------- */
 [data-theme="dark"]{
-  --paper:      #142020;
-  --paper-deep: #1B2928;
-  --ink:        #EDEAE2;
-  --ink-soft:   #AFA99C;
-  --navy:       #8FBBB0;   /* verde pino claro para que resalte sobre fondo oscuro */
-  --navy-deep:  #6E9E92;
-  --terracotta: #E3A469;
-  --terracotta-soft: #F0C293;
-  --bottle:     #6FA184;
-  --line:       #2C3634;
-  --line-soft:  #24302D;
-  --cream-card: #1E2827;
-  --topbar-bg:  rgba(20,32,32,0.88);
-  --num-light:  rgba(20,32,32,0.5);
+  --paper:      #0E1A14;
+  --paper-deep: #16241C;
+  --ink:        #EDEAE0;
+  --ink-soft:   #A9B3A5;
+  --navy:       #6FA184;   /* Moss/pine claro para contraste sobre fondo oscuro */
+  --navy-deep:  #839958;
+  --terracotta: #E0B3AC;   /* Rosy brown claro */
+  --terracotta-soft: #EDCAC5;
+  --bottle:     #A3B87C;
+  --line:       #24352A;
+  --line-soft:  #1C2B21;
+  --cream-card: #17241B;
+  --topbar-bg:  rgba(14,26,20,0.88);
+  --num-light:  rgba(14,26,20,0.5);
 }
 
 body, .topbar, .btn, .cv-link, .theme-toggle{
@@ -171,8 +172,24 @@ ul{ list-style:none; margin:0; padding:0; }
 }
 .btn-outline:hover{ background: var(--navy); color: var(--paper); }
 
+.hero-stats{
+  display: flex; gap: clamp(28px, 4vw, 48px); flex-wrap: wrap;
+  margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--line);
+  max-width: 640px;
+}
+.hero-stat{ display: flex; flex-direction: column; }
+.hero-stat-num{
+  font-family: var(--serif); font-weight: 600; font-size: clamp(28px, 3.4vw, 36px);
+  color: var(--terracotta); line-height: 1;
+}
+.hero-stat-label{
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.4px;
+  color: var(--ink-soft); margin-top: 8px; line-height: 1.5;
+}
+
 @media (max-width: 760px){
   .hero{ padding-top: clamp(48px, 8vw, 80px); }
+  .hero-stats{ gap: 28px; }
 }
 
 /* ---------- sections, generic ---------- */
@@ -263,6 +280,44 @@ ul{ list-style:none; margin:0; padding:0; }
   color: var(--terracotta); font-weight: 600; margin-bottom: 8px;
 }
 .skills-block p{ font-size: 15px; color: var(--ink); line-height: 1.75; }
+
+/* ---------- year accordion (Courses, Conferences) ---------- */
+.accordion-list{ display:flex; flex-direction:column; gap: 10px; }
+.accordion-year{
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--cream-card);
+  overflow: hidden;
+}
+.accordion-year summary{
+  list-style: none;
+  cursor: pointer;
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px 22px;
+  font-family: var(--serif); font-weight: 600; font-size: 19px;
+  color: var(--navy);
+}
+.accordion-year summary::-webkit-details-marker{ display:none; }
+.accordion-year summary::before{
+  content: "+";
+  font-family: var(--mono); font-size: 15px; color: var(--terracotta);
+  width: 16px; text-align:center; transition: transform .2s ease;
+}
+.accordion-year[open] summary::before{ content: "−"; }
+.accordion-count{
+  font-family: var(--mono); font-size: 11.5px; color: var(--ink-soft);
+  margin-left: auto; letter-spacing: .5px;
+}
+.accordion-body{
+  padding: 0 22px 6px;
+  border-top: 1px solid var(--line-soft);
+}
+.accordion-body .exp-item{ grid-template-columns: 90px 1fr; padding: 18px 0; }
+.accordion-body .exp-item:first-child{ border-top: none; }
+
+@media (max-width: 600px){
+  .accordion-body .exp-item{ grid-template-columns: 1fr; gap: 4px; }
+}
 
 /* ---------- contact ---------- */
 .contact{
@@ -440,7 +495,7 @@ ul{ list-style:none; margin:0; padding:0; }
    change every --rpl-accent value below to: #c1487a
 */
 .research-project-link{
-  --rpl-accent: #2f5fd6;
+  --rpl-accent: #839958;
   display: block;
   margin-top: 24px;
   padding: 18px 22px;
@@ -480,3 +535,14 @@ ul{ list-style:none; margin:0; padding:0; }
   opacity: .75;
   line-height: 1.5;
 }
+.rpl-cta{
+  display: inline-block;
+  margin-top: 14px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--rpl-accent);
+}
+.research-project-link{ padding: 22px 24px; }

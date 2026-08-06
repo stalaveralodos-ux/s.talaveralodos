@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ page.title }}</title>
+<meta name="description" content="{{ page.description }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- ===== Texture / noise overlay ===== -->
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ===== Top bar ===== -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="#top" class="mark">STL</a>
+    <nav class="topnav">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#leadership">Leadership</a>
+      <a href="#publications">List of Publications</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="topbar-actions">
+      <a class="cv-link" href="https://linktr.ee/s.talaveralodos" target="_blank" rel="noopener">Linktree ↗</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema" title="Cambiar tema claro/oscuro">
+        <svg id="themeIcon" viewBox="0 0 24 24" stroke-width="1.6">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
+        </svg>
+      </button>
+      <span class="cmdk-tip" id="cmdkTip">⌘K</span>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ===== Hero ===== -->
+  <section class="hero hero-no-seal">
+    <div class="hero-inner">
+      <p class="eyebrow">Dossier — Curriculum &amp; Research Record</p>
+      <h1 class="hero-title">Silvia Talavera<br>Lodos</h1>
+      <p class="hero-role">{{ page.hero_role }}</p>
+      <p class="hero-statement">{{ page.hero_statement }}</p>
+      <div class="hero-actions">
+        <a href="https://linktr.ee/s.talaveralodos" target="_blank" rel="noopener" class="btn btn-primary">Visit my Linktree</a>
+        <a href="#contact" class="btn btn-ghost">Get in touch</a>
+      </div>
+    </div>
+  </section>
+
+  {{ content }}
+
+</main>
+
+<footer class="sitefoot">
+  <p>© 2026 Silvia Talavera Lodos. Built with care, not a template.</p>
+</footer>
+
+<div class="cmdk-overlay" id="cmdkOverlay">
+  <div class="cmdk-box" role="dialog" aria-modal="true" aria-label="Quick navigation">
+    <input type="text" id="cmdkInput" class="cmdk-input" placeholder="Go to... (about, experience, leadership, education, publications, contact)" autocomplete="off">
+    <ul class="cmdk-list" id="cmdkList"></ul>
+  </div>
+</div>
+
+<script src="{{ '/assets/main.js' | relative_url }}"></script>
+</body>
+</html>

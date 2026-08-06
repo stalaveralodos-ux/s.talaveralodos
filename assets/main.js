@@ -63,6 +63,10 @@
       const match = text.includes(q);
       item.classList.toggle('hidden', !match);
       if (match) visible++;
+      if (match && q) {
+        const parentDetails = item.closest('details.pub-accordion');
+        if (parentDetails) parentDetails.open = true;
+      }
     });
     countEl.textContent = q ? `${visible} of ${items.length}` : '';
   }
@@ -103,7 +107,6 @@
     { label: 'Experience', hint: 'section', href: '#experience' },
     { label: 'Visiting Periods', hint: 'section', href: '#visiting' },
     { label: 'Education', hint: 'section', href: '#education' },
-    { label: 'Teaching Experience', hint: 'section', href: '#teaching' },
     { label: 'List of Publications', hint: 'section', href: '#publications' },
     { label: 'Research Funding & Grant Preparation', hint: 'section', href: '#research-funding' },
     { label: 'Research Methods & Digital Competencies', hint: 'section', href: '#research-methods' },

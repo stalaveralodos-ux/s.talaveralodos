@@ -217,6 +217,13 @@ ul{ list-style:none; margin:0; padding:0; }
 .about-text p:last-child{ margin-bottom:0; }
 .about-text em{ font-family: var(--serif); font-style: italic; color: var(--navy); }
 
+.about-keyword-list{ margin: 4px 0 20px; padding-left: 20px; }
+.about-keyword-list li{ font-size: 15px; color: var(--ink); line-height: 1.7; margin-bottom: 10px; }
+.about-keyword-list li::marker{ color: var(--terracotta); }
+.about-keyword-list li:last-child{ margin-bottom: 0; }
+.about-keyword-list strong{ color: var(--navy); font-weight: 600; }
+.about-cta{ font-family: var(--serif); font-style: italic; color: var(--navy); margin-top: 6px !important; }
+
 .about-facts dl{ margin:0; }
 .fact{ padding: 16px 0; border-top: 1px solid var(--line-soft); }
 .fact:last-child{ border-bottom: 1px solid var(--line-soft); }
@@ -315,6 +322,20 @@ ul{ list-style:none; margin:0; padding:0; }
 .accordion-body .exp-item{ grid-template-columns: 90px 1fr; padding: 18px 0; }
 .accordion-body .exp-item:first-child{ border-top: none; }
 
+.section-accordion{ border: none; background: none; }
+.section-head-toggle{
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+.section-head-toggle::-webkit-details-marker{ display:none; }
+.section-head-toggle::after{
+  content: "+";
+  font-family: var(--mono); font-size: 18px; color: var(--terracotta);
+  margin-left: auto;
+}
+.section-accordion[open] .section-head-toggle::after{ content: "−"; }
+
 @media (max-width: 600px){
   .accordion-body .exp-item{ grid-template-columns: 1fr; gap: 4px; }
 }
@@ -405,6 +426,31 @@ ul{ list-style:none; margin:0; padding:0; }
   white-space: nowrap;
 }
 .pub-item.hidden{ display: none; }
+
+.pub-accordion{
+  border-top: 1px solid var(--line-soft);
+  margin-bottom: 4px;
+}
+.pub-accordion .pub-list{ padding-top: 6px; }
+.pub-category-toggle{
+  list-style: none;
+  cursor: pointer;
+  display: flex; align-items: center; gap: 12px;
+  padding: 18px 0;
+  font-family: var(--mono); font-size: 12.5px; letter-spacing: 1.2px; text-transform: uppercase;
+  color: var(--terracotta); font-weight: 600;
+}
+.pub-category-toggle::-webkit-details-marker{ display:none; }
+.pub-category-toggle::before{
+  content: "+";
+  font-family: var(--mono); font-size: 15px; color: var(--terracotta);
+  width: 14px;
+}
+.pub-accordion[open] .pub-category-toggle::before{ content: "−"; }
+.pub-category-toggle .accordion-count{
+  margin-left: auto; text-transform: none; letter-spacing: 0; font-weight: 500;
+  color: var(--ink-soft);
+}
 
 /* ---------- botón "Copy citation" ---------- */
 .cite-btn{

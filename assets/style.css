@@ -651,3 +651,54 @@ ul{ list-style:none; margin:0; padding:0; }
 .topnav a.active::after{
   right: 0;
 }
+/* ---------- timeline vertical (Experience / Visiting / Education) ---------- */
+.exp-list{
+  position: relative;
+}
+.exp-list::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 172px;
+  width: 1px;
+  background: var(--line);
+}
+.exp-list-fill{
+  position: absolute;
+  top: 0;
+  left: 172px;
+  width: 1px;
+  height: 0;
+  background: var(--terracotta);
+  transition: height 0.6s ease;
+}
+.exp-item{
+  position: relative;
+}
+.exp-item::before{
+  content: "";
+  position: absolute;
+  left: 172px;
+  top: 28px;
+  width: 9px;
+  height: 9px;
+  margin-left: -4px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--line);
+  transition: background 0.4s ease, border-color 0.4s ease, transform 0.3s ease, box-shadow 0.4s ease;
+  z-index: 1;
+}
+.exp-item.in-view::before{
+  background: var(--terracotta);
+  border-color: var(--terracotta);
+  transform: scale(1.2);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--terracotta) 18%, transparent);
+}
+
+@media (max-width: 600px){
+  .exp-list::before,
+  .exp-list-fill,
+  .exp-item::before{ display: none; }
+}

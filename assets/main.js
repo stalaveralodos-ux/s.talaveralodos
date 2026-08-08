@@ -335,6 +335,37 @@
   overlay.addEventListener('click', (e) => {
     if (e.target === overlay) closePalette();
   });
+   /* ---------- Cifras del hero (count-up al cargar) ---------- */
+(function heroStats() {
+  const nums = document.querySelectorAll('.hero-stat-num');
+  if (!nums.length) return;
+  nums.forEach(el => {
+    const target = parseInt(el.getAttribute('data-count'), 10) || 0;
+    const duration = 900;
+    const start = performance.now();
+    function tick(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      el.textContent = Math.round(progress * target);
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  });
+})();
+
+/* ---------- Pull-stats reutilizables ---------- */
+(function pullStats() {
+  const stats = document.querySelectorAll('.pull-stat');
+  if (!stats.length) return;
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('grown');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  stats.forEach(s => obs.observe(s));
+})();
 
   const tip = document.getElementById('cmdkTip');
   if (tip) tip.addEventListener('click', openPalette);

@@ -126,6 +126,75 @@
 
   items.forEach(item => timelineObserver.observe(item));
 })();
+/* ---------- Barras de idiomas ---------- */
+(function languageBars() {
+  const bars = document.querySelectorAll('.lang-bar');
+  if (!bars.length) return;
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const fill = entry.target.querySelector('.lang-fill');
+        const level = entry.target.getAttribute('data-level');
+        if (fill && level) fill.style.width = level + '%';
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  bars.forEach(b => obs.observe(b));
+})();
+
+/* ---------- Mapa de fellowships ---------- */
+(function fellowshipMap() {
+  const items = document.querySelectorAll('#visiting .exp-item');
+  const dots = document.querySelectorAll('.fellowship-dot');
+  if (!items.length || !dots.length) return;
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const idx = Array.from(items).indexOf(entry.target);
+        const dot = document.querySelector(`.fellowship-dot[data-index="${idx}"]`);
+        if (dot) dot.classList.add('lit');
+      }
+    });
+  }, { rootMargin: '-10% 0px -55% 0px', threshold: 0 });
+  items.forEach(item => obs.observe(item));
+})();
+
+/* ---------- Gráfico de publicaciones por año ---------- */
+(function pubChart() {
+  const container = document.getElementById('pubChart');
+  if (!container) return;
+
+  const years = Array.from(document.querySelectorAll('#publications .pub-year'))
+    .map(el => el.textContent.trim())
+    .filter(y => /^\d{4}$/.test(y));
+  if (!years.length) return;
+
+  const counts = {};
+  years.forEach(y => { counts[y] = (counts[y] || 0) + 1; });
+  const sortedYears = Object.keys(counts).sort();
+  const max = Math.max(...Object.values(counts));
+
+  container.innerHTML = sortedYears.map(y => `
+    <div class="pub-chart-col">
+      <div class="pub-chart-bar-wrap">
+        <div class="pub-chart-bar" style="--h: ${(counts[y] / max * 100)}%"></div>
+      </div>
+      <div class="pub-chart-year">${y}</div>
+    </div>
+  `).join('');
+
+  const bars = container.querySelectorAll('.pub-chart-bar');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('grown');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  bars.forEach(b => obs.observe(b));
+})();
 
 /* ---------- Buscador de publicaciones ---------- */
 (function pubSearch() {

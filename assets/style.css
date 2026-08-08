@@ -846,3 +846,115 @@ ul{ list-style:none; margin:0; padding:0; }
 .stamp-stars circle{ fill:var(--terracotta); }
 .stamp-mono{ font-family:var(--serif); font-weight:700; font-size:22px; fill:var(--navy); text-anchor:middle; }
 .stamp-sub{ font-family:var(--mono); font-size:8px; letter-spacing:2px; fill:var(--ink-soft); text-anchor:middle; }
+
+
+/* ============================================================
+   FASE 6 — timeline paralela Experience + Education (por año)
+   ============================================================ */
+.parallel-timeline{
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 52px 1fr;
+  grid-auto-rows: minmax(30px, auto);
+  column-gap: clamp(16px, 3vw, 32px);
+  margin-top: 8px;
+}
+.parallel-year{
+  grid-column: 2;
+  display: flex;
+  justify-content: center;
+  padding-top: 22px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--terracotta);
+  position: relative;
+}
+.parallel-year::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: -100%;
+  left: 50%;
+  width: 1px;
+  background: var(--line);
+}
+.parallel-cell{ min-width: 0; display: flex; flex-direction: column; justify-content: center; position: relative; }
+.parallel-cell-exp{ grid-column: 1; align-items: flex-end; text-align: right; }
+.parallel-cell-edu{ grid-column: 3; align-items: flex-start; text-align: left; }
+
+/* ---------- barra de duración (largo real de cada entrada) ---------- */
+.parallel-cell::before{
+  content: "";
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  width: 3px;
+  border-radius: 2px;
+}
+.parallel-cell-exp::before{
+  right: -14px;
+  background: var(--bottle);
+}
+.parallel-cell-edu::before{
+  left: -14px;
+  background: var(--terracotta);
+}
+
+@media (max-width: 760px){
+  .parallel-cell-exp::before,
+  .parallel-cell-edu::before{ display: none; }
+}
+.parallel-cell .exp-item{ width: 100%; border-bottom: none; padding: 18px 0; }
+.parallel-cell-exp .exp-item{ grid-template-columns: 1fr 90px; }
+.parallel-cell-exp .exp-when{ order: 2; text-align: right; }
+.parallel-cell-exp .exp-what{ order: 1; text-align: right; }
+.parallel-cell-exp .exp-bullets{ padding-left: 0; padding-right: 18px; }
+.parallel-cell-exp .exp-bullets li::marker{ content: ""; }
+
+@media (max-width: 760px){
+  .parallel-timeline{
+    grid-template-columns: 40px 1fr !important;
+  }
+  .parallel-year{ grid-column: 1 !important; grid-row: auto !important; }
+  .parallel-cell{ grid-column: 2 !important; grid-row: auto !important; align-items: flex-start !important; text-align: left !important; }
+  .parallel-cell-exp .exp-item{ grid-template-columns: 90px 1fr !important; }
+  .parallel-cell-exp .exp-when,
+  .parallel-cell-exp .exp-what{ order: initial !important; text-align: left !important; }
+  .parallel-cell-exp .exp-bullets{ padding-left: 18px !important; padding-right: 0 !important; }
+}
+
+
+/* ============================================================
+   FASE 7 — banner de cabecera
+   ============================================================ */
+.header-banner{
+  width: 100%;
+  max-height: 320px;
+  overflow: hidden;
+  line-height: 0;
+}
+.header-banner-img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+}
+@media (max-width: 760px){
+  .header-banner{ max-height: 180px; }
+}
+
+
+/* ============================================================
+   Utilidad de accesibilidad
+   ============================================================ */
+.visually-hidden{
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

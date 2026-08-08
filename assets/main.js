@@ -52,6 +52,41 @@
     revealEls.forEach(el => observer.observe(el));
   }
 
+   /* ---------- Timeline (Experience / Visiting Periods / Education) ---------- */
+(function timeline() {
+  const lists = document.querySelectorAll('.exp-list');
+  if (!lists.length) return;
+
+  lists.forEach(list => {
+    const fill = document.createElement('div');
+    fill.className = 'exp-list-fill';
+    list.insertBefore(fill, list.firstChild);
+  });
+
+  function updateFill(list) {
+    const fill = list.querySelector('.exp-list-fill');
+    const litItems = list.querySelectorAll('.exp-item.in-view');
+    if (!fill || !litItems.length) return;
+    const lastLit = litItems[litItems.length - 1];
+    const listRect = list.getBoundingClientRect();
+    const itemRect = lastLit.getBoundingClientRect();
+    const offset = (itemRect.top - listRect.top) + (itemRect.height / 2);
+    fill.style.height = offset + 'px';
+  }
+
+  const items = document.querySelectorAll('.exp-item');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        updateFill(entry.target.closest('.exp-list'));
+      }
+    });
+  }, { rootMargin: '-10% 0px -55% 0px', threshold: 0 });
+
+  items.forEach(item => observer.observe(item));
+})();
+
   // ---------- Nav activo según sección visible ----------
   const navLinks = Array.from(document.querySelectorAll('.topnav a[href^="#"]'));
   const navMap = new Map(navLinks.map(a => [a.getAttribute('href').slice(1), a]));

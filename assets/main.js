@@ -36,6 +36,71 @@
   pair('conferences', 'courses');
 })();
 
+/* ---------- Timeline paralela: Experience + Education por año ---------- */
+(function parallelTimeline() {
+  const expSection = document.getElementById('experience');
+  const eduSection = document.getElementById('education');
+  if (!expSection || !eduSection) return;
+
+  const expList = expSection.querySelector('.exp-list');
+  const eduList = eduSection.querySelector('.exp-list');
+  if (!expList || !eduList) return;
+
+  function parseYear(item) {
+    const whenEl = item.querySelector('.exp-when');
+    if (!whenEl) return null;
+    const match = whenEl.textContent.match(/\d{4}/);
+    return match ? parseInt(match[0], 10) : null;
+  }
+
+  function groupByYear(list) {
+    const map = new Map();
+    Array.from(list.querySelectorAll('.exp-item')).forEach(item => {
+      const y = parseYear(item);
+      if (y === null) return;
+      if (!map.has(y)) map.set(y, []);
+      map.get(y).push(item);
+    });
+    return map;
+  }
+
+  const expByYear = groupByYear(expList);
+  const eduByYear = groupByYear(eduList);
+
+  const years = Array.from(new Set([...expByYear.keys(), ...eduByYear.keys()])).sort((a, b) => b - a);
+  if (!years.length) return;
+
+  const grid = document.createElement('div');
+  grid.className = 'parallel-timeline';
+
+  years.forEach((year, i) => {
+    const row = i + 1;
+
+    const yearLabel = document.createElement('div');
+    yearLabel.className = 'parallel-year';
+    yearLabel.style.gridRow = row;
+    yearLabel.textContent = year;
+    grid.appendChild(yearLabel);
+
+    const leftCell = document.createElement('div');
+    leftCell.className = 'parallel-cell parallel-cell-exp';
+    leftCell.style.gridRow = row;
+    (expByYear.get(year) || []).forEach(item => leftCell.appendChild(item));
+    grid.appendChild(leftCell);
+
+    const rightCell = document.createElement('div');
+    rightCell.className = 'parallel-cell parallel-cell-edu';
+    rightCell.style.gridRow = row;
+    (eduByYear.get(year) || []).forEach(item => rightCell.appendChild(item));
+    grid.appendChild(rightCell);
+  });
+
+  const pairWrapper = expSection.parentElement;
+  expList.remove();
+  eduList.remove();
+  (pairWrapper || expSection).appendChild(grid);
+})();
+
 /* ---------- Barra de progreso + scroll reveal + nav activo ---------- */
 (function scrollEffects() {
   const bar = document.getElementById('progressBar');

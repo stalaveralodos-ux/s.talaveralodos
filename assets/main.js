@@ -30,7 +30,65 @@
       const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
       bar.style.width = scrolled + '%';
     });
+      // Etiqueta automáticamente las secciones de contenido con .reveal,
+  // sin tener que tocar el HTML de cada sección individual
+  document.querySelectorAll('main .section, main .contact').forEach(el => {
+    el.classList.add('reveal');
+  });
+
+  const revealEls = document.querySelectorAll('.reveal');
+  if (revealEls.length) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    revealEls.forEach(el => observer.observe(el));
   }
+
+  // ---------- Nav activo según sección visible ----------
+  const navLinks = Array.from(document.querySelectorAll('.topnav a[href^="#"]'));
+  const navMap = new Map(navLinks.map(a => [a.getAttribute('href').slice(1), a]));
+  const sections = Array.from(document.querySelectorAll('main [id]'))
+    .filter(el => el.tagName !== 'A');
+
+  if (sections.length && navLinks.length) {
+    let lastActive = null;
+
+    function setActive(id) {
+      // Si la sección visible no tiene link propio en el topbar
+      // (ej. "Visiting Periods"), mantiene resaltado el link anterior
+      // más cercano (ej. "Experience"), como un capítulo en curso
+      let target = null;
+      const idx = sections.findIndex(s => s.id === id);
+      for (let i = idx; i >= 0; i--) {
+        if (navMap.has(sections[i].id)) {
+          target = navMap.get(sections[i].id);
+          break;
+        }
+      }
+      if (target === lastActive) return;
+      navLinks.forEach(a => a.classList.remove('active'));
+      if (target) target.classList.add('active');
+      lastActive = target;
+    }
+
+    const spyObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    }, {
+      rootMargin: '-45% 0px -50% 0px',
+      threshold: 0
+    });
+
+    sections.forEach(s => spyObserver.observe(s));
+  }
+})();
 
   const revealEls = document.querySelectorAll('.reveal');
   if (revealEls.length) {

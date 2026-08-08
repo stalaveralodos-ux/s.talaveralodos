@@ -725,3 +725,22 @@ ul{ list-style:none; margin:0; padding:0; }
 .pub-chart-bar{ width:100%; max-width:22px; height:0%; background:var(--bottle); border-radius:2px 2px 0 0; transition:height .8s ease; }
 .pub-chart-bar.grown{ height:var(--h); }
 .pub-chart-year{ font-family:var(--mono); font-size:10px; color:var(--ink-soft); }
+/* ---------- cifras destacadas del hero ---------- */
+.hero-stat-num{ display:inline-block; }
+
+/* ---------- pull-stat reutilizable ---------- */
+.pull-stat{
+  display:inline-block;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--terracotta);
+  margin-top: 8px;
+  padding-top: 2px;
+  border-top: 1px solid var(--line-soft);
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.pull-stat.grown{ opacity: 1; transform: scale(1); }

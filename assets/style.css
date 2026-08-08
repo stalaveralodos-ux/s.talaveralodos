@@ -644,3 +644,10 @@ ul{ list-style:none; margin:0; padding:0; }
 .topnav a.active::after{
   right: 0;
 }
+/* ---------- estado activo del nav (scrollspy) ---------- */
+.topnav a.active{
+  color: var(--terracotta);
+}
+.topnav a.active::after{
+  right: 0;
+}

@@ -36,7 +36,7 @@
   pair('conferences', 'courses');
 })();
 
-/* ---------- Timeline paralela: Experience + Education por año ---------- */
+/* ---------- Timeline paralela: Experience + Education, con duración real ---------- */
 (function parallelTimeline() {
   const expSection = document.getElementById('experience');
   const eduSection = document.getElementById('education');
@@ -46,54 +46,70 @@
   const eduList = eduSection.querySelector('.exp-list');
   if (!expList || !eduList) return;
 
-  function parseYear(item) {
-    const whenEl = item.querySelector('.exp-when');
-    if (!whenEl) return null;
-    const match = whenEl.textContent.match(/\d{4}/);
-    return match ? parseInt(match[0], 10) : null;
-  }
-
-  function groupByYear(list) {
+  // Agrupa por rango exacto de años (start-end), para que dos entradas
+  // con el mismo rango (ej. dos trabajos el mismo año) se apilen juntas
+  // en vez de superponerse en la rejilla.
+  function groupByRange(list) {
     const map = new Map();
     Array.from(list.querySelectorAll('.exp-item')).forEach(item => {
-      const y = parseYear(item);
-      if (y === null) return;
-      if (!map.has(y)) map.set(y, []);
-      map.get(y).push(item);
+      const whenEl = item.querySelector('.exp-when');
+      if (!whenEl) return;
+      const matches = whenEl.textContent.match(/\d{4}/g);
+      if (!matches || !matches.length) return;
+      const nums = matches.map(Number);
+      const start = Math.min(...nums);
+      const end = Math.max(...nums);
+      const key = start + '-' + end;
+      if (!map.has(key)) map.set(key, { start, end, items: [] });
+      map.get(key).items.push(item);
     });
     return map;
   }
 
-  const expByYear = groupByYear(expList);
-  const eduByYear = groupByYear(eduList);
+  const expGroups = groupByRange(expList);
+  const eduGroups = groupByRange(eduList);
+  if (!expGroups.size && !eduGroups.size) return;
 
-  const years = Array.from(new Set([...expByYear.keys(), ...eduByYear.keys()])).sort((a, b) => b - a);
-  if (!years.length) return;
+  const allBoundaryYears = [];
+  [...expGroups.values(), ...eduGroups.values()].forEach(g => {
+    allBoundaryYears.push(g.start, g.end);
+  });
+  const minYear = Math.min(...allBoundaryYears);
+  const maxYear = Math.max(...allBoundaryYears);
+
+  // Escala continua año a año (no solo los años referenciados), para que
+  // la longitud de cada barra represente la duración real, con huecos
+  // vacíos donde no hay actividad en ese lado.
+  const yearRows = [];
+  for (let y = maxYear; y >= minYear; y--) yearRows.push(y);
+  const rowOf = new Map(yearRows.map((y, i) => [y, i + 1]));
 
   const grid = document.createElement('div');
   grid.className = 'parallel-timeline';
 
-  years.forEach((year, i) => {
-    const row = i + 1;
-
-    const yearLabel = document.createElement('div');
-    yearLabel.className = 'parallel-year';
-    yearLabel.style.gridRow = row;
-    yearLabel.textContent = year;
-    grid.appendChild(yearLabel);
-
-    const leftCell = document.createElement('div');
-    leftCell.className = 'parallel-cell parallel-cell-exp';
-    leftCell.style.gridRow = row;
-    (expByYear.get(year) || []).forEach(item => leftCell.appendChild(item));
-    grid.appendChild(leftCell);
-
-    const rightCell = document.createElement('div');
-    rightCell.className = 'parallel-cell parallel-cell-edu';
-    rightCell.style.gridRow = row;
-    (eduByYear.get(year) || []).forEach(item => rightCell.appendChild(item));
-    grid.appendChild(rightCell);
+  yearRows.forEach((year, i) => {
+    const label = document.createElement('div');
+    label.className = 'parallel-year';
+    label.style.gridRow = i + 1;
+    label.textContent = year;
+    grid.appendChild(label);
   });
+
+  function placeGroups(groups, columnClass) {
+    groups.forEach(g => {
+      // Año más reciente = fila más pequeña (arriba); año más antiguo = fila más grande (abajo)
+      const startRow = rowOf.get(g.end);
+      const endRow = rowOf.get(g.start);
+      const wrapper = document.createElement('div');
+      wrapper.className = 'parallel-cell ' + columnClass;
+      wrapper.style.gridRow = startRow + ' / ' + (endRow + 1);
+      g.items.forEach(item => wrapper.appendChild(item));
+      grid.appendChild(wrapper);
+    });
+  }
+
+  placeGroups(Array.from(expGroups.values()), 'parallel-cell-exp');
+  placeGroups(Array.from(eduGroups.values()), 'parallel-cell-edu');
 
   const pairWrapper = expSection.parentElement;
   expList.remove();

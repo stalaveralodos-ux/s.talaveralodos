@@ -259,7 +259,7 @@ ul{ list-style:none; margin:0; padding:0; }
   font-weight: 600; letter-spacing: 1px;
 }
 .section-num-light{ color: var(--num-light); }
-.section-head h2{ font-size: clamp(26px, 3.6vw, 34px); font-weight: 600; }
+.section-head h2{ font-family: var(--efco); font-size: clamp(26px, 3.6vw, 34px); font-weight: 600; }
 .section-intro{
   font-size: 16px; color: var(--ink-soft); max-width: 620px; margin-bottom: 44px; line-height:1.7;
 }
@@ -1012,3 +1012,50 @@ ul{ list-style:none; margin:0; padding:0; }
   font-style: normal;
   font-display: swap;
 }
+
+
+/* ============================================================
+   FASE 9 — desplegables de Visiting Periods y Tesis dentro de Education
+   ============================================================ */
+.visiting-toggle{
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+.visiting-toggle summary{
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  font-weight: 600;
+}
+.visiting-toggle summary::-webkit-details-marker{ display: none; }
+.visiting-toggle summary::before{ content: "+"; width: 12px; }
+.visiting-toggle[open] summary::before{ content: "−"; }
+.visiting-toggle .exp-list{ margin-top: 16px; }
+
+.thesis-toggle{ margin-top: 10px; }
+.thesis-toggle summary{
+  cursor: pointer;
+  list-style: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  transition: color .2s ease;
+}
+.thesis-toggle summary:hover{ color: var(--terracotta); }
+.thesis-toggle summary::-webkit-details-marker{ display: none; }
+.thesis-toggle summary::before{ content: "+"; }
+.thesis-toggle[open] summary::before{ content: "−"; }
+.thesis-toggle .exp-desc{ margin-top: 8px; }

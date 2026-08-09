@@ -390,7 +390,6 @@
   if (!overlay || !input || !list) return;
 
   const routes = [
-    { label: 'About', hint: 'section', href: '#about' },
     { label: 'Experience', hint: 'section', href: '#experience' },
     { label: 'Visiting Periods', hint: 'section', href: '#visiting' },
     { label: 'Education', hint: 'section', href: '#education' },

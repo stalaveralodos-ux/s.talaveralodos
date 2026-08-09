@@ -34,6 +34,7 @@
   }
   pair('experience', 'education');
   pair('conferences', 'courses');
+  pair('publications', 'research-funding');
 })();
 
 /* ---------- Timeline paralela: Experience + Education, con duración real ---------- */
@@ -391,7 +392,6 @@
 
   const routes = [
     { label: 'Experience', hint: 'section', href: '#experience' },
-    { label: 'Visiting Periods', hint: 'section', href: '#visiting' },
     { label: 'Education', hint: 'section', href: '#education' },
     { label: 'List of Publications', hint: 'section', href: '#publications' },
     { label: 'Research Funding & Grant Preparation', hint: 'section', href: '#research-funding' },

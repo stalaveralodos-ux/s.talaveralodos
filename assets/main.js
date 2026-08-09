@@ -32,9 +32,34 @@
     wrapper.appendChild(a);
     wrapper.appendChild(b);
   }
+
+  // Para cuando un lado necesita más de una sección apilada
+  function pairGroups(leftIds, rightIds) {
+    const leftEls = leftIds.map(id => document.getElementById(id)).filter(Boolean);
+    const rightEls = rightIds.map(id => document.getElementById(id)).filter(Boolean);
+    if (!leftEls.length || !rightEls.length) return;
+    const anchor = leftEls[0];
+    if (!anchor.parentNode) return;
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'section-pair-columns';
+    anchor.parentNode.insertBefore(wrapper, anchor);
+
+    const leftCol = document.createElement('div');
+    leftCol.className = 'column-stack';
+    leftEls.forEach(el => leftCol.appendChild(el));
+    wrapper.appendChild(leftCol);
+
+    const rightCol = document.createElement('div');
+    rightCol.className = 'column-stack';
+    rightEls.forEach(el => rightCol.appendChild(el));
+    wrapper.appendChild(rightCol);
+  }
+
   pair('experience', 'education');
   pair('conferences', 'courses');
   pair('publications', 'research-funding');
+  pairGroups(['research-methods', 'networks'], ['leadership']);
 })();
 
 /* ---------- Timeline paralela: Experience + Education, con duración real ---------- */
@@ -52,7 +77,11 @@
   // en vez de superponerse en la rejilla.
   function groupByRange(list) {
     const map = new Map();
-    Array.from(list.querySelectorAll('.exp-item')).forEach(item => {
+    // Excluye entradas anidadas dentro de un desplegable (ej. Visiting Periods
+    // dentro del PhD), para que no se cuenten como filas propias de la rejilla.
+    Array.from(list.querySelectorAll('.exp-item'))
+      .filter(item => !item.closest('.visiting-toggle') && !item.closest('.thesis-toggle'))
+      .forEach(item => {
       const whenEl = item.querySelector('.exp-when');
       if (!whenEl) return;
       const matches = whenEl.textContent.match(/\d{4}/g);

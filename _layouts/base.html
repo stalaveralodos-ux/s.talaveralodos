@@ -7,7 +7,7 @@
 <meta name="description" content="{{ page.description }}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Berkshire+Swash&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Berkshire+Swash&family=Alegreya+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
 </head>
 <body>
@@ -25,7 +25,6 @@
 <header class="topbar">
   <div class="topbar-inner">
     <nav class="topnav">
-      <a href="#about">About</a>
       <a href="#experience">Experience</a>
       <a href="#education">Education</a>
       <a href="#leadership">Leadership</a>
@@ -51,34 +50,54 @@
   <section class="hero hero-no-seal">
     <div class="hero-inner">
       <p class="eyebrow">Dossier — Curriculum &amp; Research Record</p>
-      <div class="hero-identity">
-        <div class="hero-avatar">
-          <img src="{{ '/assets/profile.jpg' | relative_url }}" alt="Silvia Talavera Lodos" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-          <span class="hero-avatar-fallback"></span>
+      <div class="hero-columns">
+        <div class="hero-col-text">
+          <div class="hero-identity">
+            <div class="hero-avatar">
+              <img src="{{ '/assets/profile.jpg' | relative_url }}" alt="Silvia Talavera Lodos" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+              <span class="hero-avatar-fallback"></span>
+            </div>
+            <h1 class="hero-title visually-hidden">Silvia Talavera<br>Lodos</h1>
+          </div>
+          <p class="hero-greeting" aria-hidden="true">Hello, I'm Silvia!</p>
+          <p class="hero-role">{{ page.hero_role }}</p>
+          <p class="hero-statement">My work is about <span class="hero-accent">bridging gaps:</span> making European legislation make sense for regional priorities, or bringing international human rights commitments down to the local level.</p>
+          <p class="hero-statement">I work across Spanish, English, Italian, French and German, which keeps me precise moving between institutions, research networks and advocacy spaces.</p>
+          <p class="hero-statement hero-cta-line">Looking for my next challenge in consulting, policy, research, or project coordination. Message me if you would like to chat.</p>
         </div>
-        <h1 class="hero-title visually-hidden">Silvia Talavera<br>Lodos</h1>
-      </div>
-      <p class="hero-greeting" aria-hidden="true">Hello, I'm Silvia!</p>
-      <p class="hero-role">{{ page.hero_role }}</p>
-      <p class="hero-statement">My work is about <span class="hero-accent">bridging gaps:</span> making European legislation make sense for regional priorities, or bringing international human rights commitments down to the local level.</p>
-      <p class="hero-statement">I work across Spanish, English, Italian, French and German, which keeps me precise moving between institutions, research networks and advocacy spaces.</p>
-      <p class="hero-statement hero-cta-line">Looking for my next challenge in consulting, policy, research, or project coordination. Message me if you would like to chat.</p>
-      <div class="hero-actions">
-        <a href="https://linktr.ee/s.talaveralodos" target="_blank" rel="noopener" class="btn btn-primary">Visit my Linktree</a>
-        <a href="#contact" class="btn btn-ghost">Get in touch</a>
-      </div>
-      <div class="hero-stats">
-        <div class="hero-stat">
-          <span class="hero-stat-num" data-count="3">0</span>
-          <span class="hero-stat-label">Cities compared in<br>doctoral research</span>
-        </div>
-        <div class="hero-stat">
-          <span class="hero-stat-num" data-count="12">0</span>
-          <span class="hero-stat-label">Publications &amp; public<br>engagement pieces</span>
-        </div>
-        <div class="hero-stat">
-          <span class="hero-stat-num" data-count="5">0</span>
-          <span class="hero-stat-label">Working<br>languages</span>
+        <div class="hero-col-actions">
+          <div class="hero-actions">
+            <a href="https://linktr.ee/s.talaveralodos" target="_blank" rel="noopener" class="btn btn-primary">Visit my Linktree</a>
+            <a href="#contact" class="btn btn-ghost">Get in touch</a>
+          </div>
+          <a href="https://stalaveralodos-ux.github.io/thesis-scrollytelling/" target="_blank" rel="noopener" class="building-link" aria-label="Interactive scrollytelling: The Constitutional Role of Municipalities in the Governance of Social Rights">
+            <svg viewBox="0 0 60 80" class="building-icon" aria-hidden="true">
+              <line x1="30" y1="14" x2="30" y2="4" class="building-antenna"></line>
+              <rect x="6" y="14" width="48" height="6" class="building-roof"></rect>
+              <rect x="10" y="20" width="40" height="55" class="building-body"></rect>
+              <rect x="18" y="30" width="8" height="8" class="building-window"></rect>
+              <rect x="34" y="30" width="8" height="8" class="building-window"></rect>
+              <rect x="18" y="44" width="8" height="8" class="building-window"></rect>
+              <rect x="34" y="44" width="8" height="8" class="building-window"></rect>
+              <rect x="18" y="58" width="8" height="8" class="building-window"></rect>
+              <rect x="34" y="58" width="8" height="8" class="building-window"></rect>
+            </svg>
+            <span class="building-label">Interactive Storytelling ↗</span>
+          </a>
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <span class="hero-stat-num" data-count="3">0</span>
+              <span class="hero-stat-label">Cities compared in<br>doctoral research</span>
+            </div>
+            <div class="hero-stat">
+              <span class="hero-stat-num" data-count="12">0</span>
+              <span class="hero-stat-label">Publications &amp; public<br>engagement pieces</span>
+            </div>
+            <div class="hero-stat">
+              <span class="hero-stat-num" data-count="5">0</span>
+              <span class="hero-stat-label">Working<br>languages</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -100,7 +119,5 @@
 </div>
 
 <script src="{{ '/assets/main.js' | relative_url }}"></script>
-</body>
-</html>pt>
 </body>
 </html>

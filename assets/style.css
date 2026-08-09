@@ -25,6 +25,8 @@
   --serif: "Source Serif 4", Georgia, serif;
   --sans:  "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --mono:  "JetBrains Mono", "SF Mono", Consolas, monospace;
+  --swash: "Berkshire Swash", cursive;
+  --efco: "EFCO Brookshire", "Berkshire Swash", cursive; /* fallback a Berkshire Swash hasta que subas el archivo de la fuente */
 
   --max: 1080px;
   --pad: clamp(24px, 5vw, 64px);
@@ -957,4 +959,37 @@ ul{ list-style:none; margin:0; padding:0; }
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+
+/* ============================================================
+   FASE 8 — saludo decorativo del hero (Berkshire Swash)
+   ============================================================ */
+.hero-greeting{
+  font-family: var(--efco);
+  font-size: clamp(32px, 5vw, 52px);
+  color: var(--terracotta);
+  line-height: 1.1;
+  margin-top: 20px;
+  letter-spacing: 0.5px;
+}
+.hero-accent{
+  font-family: var(--efco);
+  font-size: 1.15em;
+  color: var(--terracotta);
+  font-weight: 400;
+}
+
+
+/* ============================================================
+   FASE 8b — EFCO Brookshire (fuente de pago, autoalojada)
+   Descomenta este bloque y ajusta la ruta cuando subas el archivo
+   de la fuente a assets/fonts/. Formatos aceptados: .woff2 (preferido) o .woff
+   ============================================================ */
+@font-face{
+  font-family: "EFCO Brookshire";
+  src: url("/assets/fonts/EFCOBrookshire.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }

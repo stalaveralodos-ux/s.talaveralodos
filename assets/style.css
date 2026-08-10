@@ -1165,3 +1165,68 @@ ul{ list-style:none; margin:0; padding:0; }
   padding-top: 22px;
   border-top: 1px solid var(--line);
 }
+
+
+/* ============================================================
+   FASE 14 — Leadership como lista compacta de desplegables
+   ============================================================ */
+.role-list{ display: flex; flex-direction: column; }
+
+.role-toggle,
+.role-row{
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+.role-list > *:first-child{ border-top: 1px solid var(--line-soft); }
+
+.role-toggle summary{
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+.role-toggle summary::-webkit-details-marker{ display: none; }
+.role-toggle summary::after{
+  content: "+";
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--terracotta);
+  flex-shrink: 0;
+}
+.role-toggle[open] summary::after{ content: "−"; }
+
+.role-row{
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.role-when{
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-soft);
+  white-space: nowrap;
+  min-width: 100px;
+  flex-shrink: 0;
+}
+.role-title{
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.role-org{
+  font-weight: 400;
+  color: var(--ink-soft);
+}
+.role-toggle .exp-desc{
+  margin-top: 10px;
+  padding-left: 116px;
+}
+
+@media (max-width: 600px){
+  .role-toggle summary,
+  .role-row{ flex-wrap: wrap; gap: 4px 12px; }
+  .role-toggle .exp-desc{ padding-left: 0; }
+}

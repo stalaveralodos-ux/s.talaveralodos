@@ -1076,3 +1076,69 @@ ul{ list-style:none; margin:0; padding:0; }
   flex-direction: column;
   gap: clamp(48px, 8vw, 80px);
 }
+
+
+/* ============================================================
+   FASE 11 — Research Methods como iconos + desplegable
+   ============================================================ */
+.skills-grid{ display: flex; flex-direction: column; gap: 14px; }
+
+.skill-toggle{
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--cream-card);
+  padding: 16px 20px;
+  transition: border-color .2s ease;
+}
+.skill-toggle[open]{ border-color: var(--terracotta); }
+
+.skill-toggle summary{
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.skill-toggle summary::-webkit-details-marker{ display: none; }
+.skill-toggle summary::after{
+  content: "+";
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 16px;
+  color: var(--terracotta);
+  flex-shrink: 0;
+}
+.skill-toggle[open] summary::after{ content: "−"; }
+
+.skill-icon{
+  width: 30px; height: 30px;
+  flex-shrink: 0;
+}
+.skill-icon *{
+  stroke: var(--terracotta);
+  stroke-width: 1.6;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.skill-icon-bars rect{
+  fill: var(--terracotta);
+  stroke: none;
+}
+
+.skill-title{
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .3px;
+  color: var(--navy);
+}
+
+.skill-desc{
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line-soft);
+  font-size: 14.5px;
+  color: var(--ink);
+  line-height: 1.75;
+}

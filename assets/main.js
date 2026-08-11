@@ -424,7 +424,7 @@
     { label: 'Education', hint: 'section', href: '#education' },
     { label: 'List of Publications', hint: 'section', href: '#publications' },
     { label: 'Research Funding & Grant Preparation', hint: 'section', href: '#research-funding' },
-    { label: 'Research Methods & Digital Competencies', hint: 'section', href: '#research-methods' },
+    { label: 'Skills & Competencies', hint: 'section', href: '#research-methods' },
     { label: 'Institutional & Leadership Roles', hint: 'section', href: '#leadership' },
     { label: 'Membership in Professional Networks', hint: 'section', href: '#networks' },
     { label: 'Selected Conferences & Seminars', hint: 'section', href: '#conferences' },

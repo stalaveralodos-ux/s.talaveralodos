@@ -29,6 +29,7 @@
       <a href="#contact">Contact</a>
     </nav>
     <div class="topbar-actions">
+      <a class="lang-switch" href="{{ '/es/' | relative_url }}" title="Ver en español">ES</a>
       <a class="cv-link" href="https://linktr.ee/s.talaveralodos" target="_blank" rel="noopener">Linktree ↗</a>
       <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema" title="Cambiar tema claro/oscuro">
         <svg id="themeIcon" viewBox="0 0 24 24" stroke-width="1.6">
@@ -69,50 +70,4 @@
             <svg viewBox="0 0 60 80" class="building-icon" aria-hidden="true">
               <line x1="30" y1="14" x2="30" y2="4" class="building-antenna"></line>
               <rect x="6" y="14" width="48" height="6" class="building-roof"></rect>
-              <rect x="10" y="20" width="40" height="55" class="building-body"></rect>
-              <rect x="18" y="30" width="8" height="8" class="building-window"></rect>
-              <rect x="34" y="30" width="8" height="8" class="building-window"></rect>
-              <rect x="18" y="44" width="8" height="8" class="building-window"></rect>
-              <rect x="34" y="44" width="8" height="8" class="building-window"></rect>
-              <rect x="18" y="58" width="8" height="8" class="building-window"></rect>
-              <rect x="34" y="58" width="8" height="8" class="building-window"></rect>
-            </svg>
-            <span class="building-label">Interactive Storytelling ↗</span>
-          </a>
-          <div class="hero-stats">
-            <div class="hero-stat">
-              <span class="hero-stat-num" data-count="6">0</span>
-              <span class="hero-stat-label">Lived and worked in<br>cities</span>
-            </div>
-            <div class="hero-stat">
-              <span class="hero-stat-num" data-count="12">0</span>
-              <span class="hero-stat-label">Publications &amp; public<br>engagement pieces</span>
-            </div>
-            <div class="hero-stat">
-              <span class="hero-stat-num" data-count="5">0</span>
-              <span class="hero-stat-label">Working<br>languages</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {{ content }}
-
-</main>
-
-<footer class="sitefoot">
-  <p>© 2026 Silvia Talavera Lodos. Built with care, not a template.</p>
-</footer>
-
-<div class="cmdk-overlay" id="cmdkOverlay">
-  <div class="cmdk-box" role="dialog" aria-modal="true" aria-label="Quick navigation">
-    <input type="text" id="cmdkInput" class="cmdk-input" placeholder="Go to... (about, experience, leadership, education, publications, contact)" autocomplete="off">
-    <ul class="cmdk-list" id="cmdkList"></ul>
-  </div>
-</div>
-
-<script src="{{ '/assets/main.js' | relative_url }}"></script>
-</body>
-</html>
+              <rect x="10" y="20"

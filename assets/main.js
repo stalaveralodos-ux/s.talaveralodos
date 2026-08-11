@@ -6,7 +6,7 @@
 /* ---------- Modo claro/oscuro ---------- */
 (function themeInit() {
   const stored = localStorage.getItem('theme');
-  const theme = stored || 'dark';
+  const theme = stored || 'light';
   document.documentElement.setAttribute('data-theme', theme);
 
   const btn = document.getElementById('themeToggle');
@@ -190,11 +190,7 @@
   const pairWrapper = expSection.parentElement;
   expList.remove();
   eduList.remove();
-  if (pairWrapper) {
-    expSection.insertAdjacentElement('afterend', grid);
-  } else {
-    expSection.appendChild(grid);
-  }
+  (pairWrapper || expSection).appendChild(grid);
  } catch (err) {
   console.error('parallelTimeline error (no bloquea el resto de la página):', err);
  }

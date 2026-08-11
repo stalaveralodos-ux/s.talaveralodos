@@ -62,8 +62,14 @@
   pairGroups(['research-methods', 'networks'], ['leadership']);
 })();
 
-/* ---------- Timeline paralela: Experience + Education, con duración real ---------- */
+/* ---------- Timeline paralela: Experience + Education, con duración real -----------
+   DESACTIVADA: causaba solapamientos visuales entre bloques con fechas
+   que se cruzan (ej. Máster y Doctorado con meses en común), lo que
+   además bloqueaba el clic en desplegables como "Thesis" o "Visiting
+   Periods" en pantallas anchas. Experience y Education se muestran
+   ahora como listas normales, simples y sin riesgo de superposición. */
 (function parallelTimeline() {
+ return;
  try {
   const expSection = document.getElementById('experience');
   const eduSection = document.getElementById('education');

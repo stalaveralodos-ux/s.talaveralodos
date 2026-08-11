@@ -114,27 +114,22 @@ ul{ list-style:none; margin:0; padding:0; }
   flex-shrink: 0;
 }
 .topnav{
-  display:flex; align-items:center; gap: clamp(14px, 2vw, 30px);
+  display:flex; align-items:flex-start; gap: clamp(10px, 1.4vw, 20px);
   flex-wrap: nowrap;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
   counter-reset: navindex;
-  min-width: 0;
-}
-.topnav::-webkit-scrollbar{ display: none; }
-.topnav a{ flex-shrink: 0; }
-@media (max-width: 760px){
-  .topbar-inner{ gap: 14px; }
 }
 .topnav a{
   font-family: var(--mono);
-  font-size: 12px; font-weight: 500; color: var(--ink-soft);
+  font-size: 11px; font-weight: 500; color: var(--ink-soft);
   letter-spacing: 0.6px; text-transform: uppercase;
-  position: relative; padding: 4px 0 6px;
-  display: inline-flex; align-items: baseline; gap: 6px;
+  position: relative; padding: 6px 0 4px;
+  display: inline-flex; flex-direction: column; align-items: center; gap: 5px;
   transition: color 0.2s ease;
   counter-increment: navindex;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  white-space: nowrap;
+  max-height: 118px;
 }
 .topnav a::before{
   content: counter(navindex, decimal-leading-zero);
@@ -142,14 +137,22 @@ ul{ list-style:none; margin:0; padding:0; }
   color: var(--terracotta);
   opacity: 0.75;
   transition: opacity 0.2s ease;
+  writing-mode: horizontal-tb;
 }
 .topnav a:hover{ color: var(--navy); }
 .topnav a:hover::before{ opacity: 1; }
 .topnav a::after{
-  content:""; position:absolute; left:0; right:100%; bottom:0; height:1.5px;
-  background: var(--terracotta); transition: right 0.25s ease;
+  content:""; position:absolute; left:0; right:0; bottom:100%; top:auto; height:1.5px; width: auto;
+  background: var(--terracotta); transition: opacity 0.25s ease; opacity: 0;
 }
-.topnav a:hover::after{ right:0; }
+.topnav a:hover::after{ opacity: 1; }
+@media (max-width: 760px){
+  .topnav{
+    gap: 8px;
+  }
+  .topnav a{ font-size: 10px; max-height: 96px; }
+  .topbar-inner{ gap: 14px; }
+}
 .lang-switch{
   font-family: var(--mono); font-size: 12px; font-weight: 600;
   color: var(--ink-soft); border: 1px solid var(--line); border-radius: 50%;
@@ -709,7 +712,7 @@ ul{ list-style:none; margin:0; padding:0; }
   opacity: 1;
 }
 .topnav a.active::after{
-  right: 0;
+  opacity: 1;
 }
 
 /* ============================================================

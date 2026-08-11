@@ -72,9 +72,46 @@
   const eduList = eduSection.querySelector('.exp-list');
   if (!expList || !eduList) return;
 
-  // Agrupa por rango exacto de años (start-end), para que dos entradas
-  // con el mismo rango (ej. dos trabajos el mismo año) se apilen juntas
-  // en vez de superponerse en la rejilla.
+  const MONTHS = { jan:0, feb:1, mar:2, apr:3, may:4, jun:5, jul:6, aug:7, sep:8, oct:9, nov:10, dec:11 };
+  const now = new Date();
+  const nowVal = now.getFullYear() * 12 + now.getMonth();
+
+  // Convierte cada mitad de un rango de fechas ("Nov 2021", "2021", "present")
+  // en un valor mensual continuo (año*12 + mes), para que la posición y la
+  // duración de cada barra reflejen meses reales, no solo el año.
+  function parseHalf(text, isEnd) {
+    const t = text.trim().toLowerCase();
+    if (t === 'present' || t === 'actualidad' || t === 'ongoing') return nowVal;
+    const monthMatch = t.match(/([a-záéíóú]+)\.?\s+(\d{4})/i);
+    if (monthMatch) {
+      const abbr = monthMatch[1].slice(0, 3);
+      const monthIdx = MONTHS[abbr];
+      const year = Number(monthMatch[2]);
+      if (monthIdx !== undefined) return year * 12 + monthIdx;
+    }
+    const yearMatch = t.match(/\d{4}/);
+    if (yearMatch) {
+      const year = Number(yearMatch[0]);
+      // Sin mes explícito: asume enero si es el inicio, diciembre si es el fin.
+      return year * 12 + (isEnd ? 11 : 0);
+    }
+    return null;
+  }
+
+  function parseWhen(text) {
+    const parts = text.split(/[—–-]/);
+    if (parts.length < 2) {
+      const single = parseHalf(text, false);
+      return single === null ? null : { start: single, end: single };
+    }
+    const start = parseHalf(parts[0], false);
+    const end = parseHalf(parts.slice(1).join('-'), true);
+    if (start === null || end === null) return null;
+    return { start: Math.min(start, end), end: Math.max(start, end) };
+  }
+
+  // Agrupa por rango exacto en meses (start-end), para que dos entradas
+  // con el mismo rango se apilen juntas en vez de superponerse en la rejilla.
   function groupByRange(list) {
     const map = new Map();
     // Excluye entradas anidadas dentro de un desplegable (ej. Visiting Periods
@@ -84,13 +121,10 @@
       .forEach(item => {
       const whenEl = item.querySelector('.exp-when');
       if (!whenEl) return;
-      const matches = whenEl.textContent.match(/\d{4}/g);
-      if (!matches || !matches.length) return;
-      const nums = matches.map(Number);
-      const start = Math.min(...nums);
-      const end = Math.max(...nums);
-      const key = start + '-' + end;
-      if (!map.has(key)) map.set(key, { start, end, items: [] });
+      const range = parseWhen(whenEl.textContent);
+      if (!range) return;
+      const key = range.start + '-' + range.end;
+      if (!map.has(key)) map.set(key, { start: range.start, end: range.end, items: [] });
       map.get(key).items.push(item);
     });
     return map;
@@ -100,34 +134,41 @@
   const eduGroups = groupByRange(eduList);
   if (!expGroups.size && !eduGroups.size) return;
 
-  const allBoundaryYears = [];
+  const allBoundaryVals = [];
   [...expGroups.values(), ...eduGroups.values()].forEach(g => {
-    allBoundaryYears.push(g.start, g.end);
+    allBoundaryVals.push(g.start, g.end);
   });
-  const minYear = Math.min(...allBoundaryYears);
-  const maxYear = Math.max(...allBoundaryYears);
+  const minVal = Math.min(...allBoundaryVals);
+  const maxVal = Math.max(...allBoundaryVals);
 
-  // Escala continua año a año (no solo los años referenciados), para que
-  // la longitud de cada barra represente la duración real, con huecos
-  // vacíos donde no hay actividad en ese lado.
-  const yearRows = [];
-  for (let y = maxYear; y >= minYear; y--) yearRows.push(y);
-  const rowOf = new Map(yearRows.map((y, i) => [y, i + 1]));
+  // Escala continua mes a mes (no solo los meses referenciados), para que
+  // la longitud de cada barra represente la duración real y dos entradas
+  // del mismo año pero de meses distintos no se solapen.
+  const monthRows = [];
+  for (let v = maxVal; v >= minVal; v--) monthRows.push(v);
+  const rowOf = new Map(monthRows.map((v, i) => [v, i + 1]));
 
   const grid = document.createElement('div');
   grid.className = 'parallel-timeline';
 
-  yearRows.forEach((year, i) => {
+  const minYear = Math.floor(minVal / 12);
+  const maxYear = Math.floor(maxVal / 12);
+  for (let year = maxYear; year >= minYear; year--) {
+    const decVal = Math.min(year * 12 + 11, maxVal);
+    const janVal = Math.max(year * 12 + 0, minVal);
+    const startRow = rowOf.get(decVal);
+    const endRow = rowOf.get(janVal);
+    if (startRow === undefined || endRow === undefined) continue;
     const label = document.createElement('div');
     label.className = 'parallel-year';
-    label.style.gridRow = i + 1;
+    label.style.gridRow = startRow + ' / ' + (endRow + 1);
     label.textContent = year;
     grid.appendChild(label);
-  });
+  }
 
   function placeGroups(groups, columnClass) {
     groups.forEach(g => {
-      // Año más reciente = fila más pequeña (arriba); año más antiguo = fila más grande (abajo)
+      // Mes más reciente = fila más pequeña (arriba); mes más antiguo = fila más grande (abajo)
       const startRow = rowOf.get(g.end);
       const endRow = rowOf.get(g.start);
       const wrapper = document.createElement('div');
@@ -424,7 +465,7 @@
     { label: 'Education', hint: 'section', href: '#education' },
     { label: 'List of Publications', hint: 'section', href: '#publications' },
     { label: 'Research Funding & Grant Preparation', hint: 'section', href: '#research-funding' },
-    { label: 'Skills & Competencies', hint: 'section', href: '#research-methods' },
+    { label: 'Research Methods & Digital Competencies', hint: 'section', href: '#research-methods' },
     { label: 'Institutional & Leadership Roles', hint: 'section', href: '#leadership' },
     { label: 'Membership in Professional Networks', hint: 'section', href: '#networks' },
     { label: 'Selected Conferences & Seminars', hint: 'section', href: '#conferences' },

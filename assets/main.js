@@ -72,7 +72,11 @@
   const eduList = eduSection.querySelector('.exp-list');
   if (!expList || !eduList) return;
 
-  const MONTHS = { jan:0, feb:1, mar:2, apr:3, may:4, jun:5, jul:6, aug:7, sep:8, oct:9, nov:10, dec:11 };
+  const MONTHS = {
+    jan:0, feb:1, mar:2, apr:3, may:4, jun:5, jul:6, aug:7, sep:8, oct:9, nov:10, dec:11,
+    // Abreviaturas en español que difieren de las inglesas (el resto coincide: feb, mar, may, jun, jul, sep, oct, nov)
+    ene:0, abr:3, ago:7, dic:11
+  };
   const now = new Date();
   const nowVal = now.getFullYear() * 12 + now.getMonth();
 

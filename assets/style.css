@@ -113,16 +113,30 @@ ul{ list-style:none; margin:0; padding:0; }
   border-radius: 50%;
   flex-shrink: 0;
 }
-.topnav{ display:flex; gap: clamp(14px, 2.4vw, 28px); flex-wrap: wrap; }
-.topnav a{
-  font-size: 13.5px; font-weight: 500; color: var(--ink-soft);
-  letter-spacing: 0.2px;
-  position: relative; padding: 4px 0;
-  transition: color 0.2s ease;
+.topnav{
+  display:flex; align-items:center; gap: clamp(18px, 2.6vw, 34px); flex-wrap: wrap;
+  counter-reset: navindex;
 }
-.topnav a:hover{ color: var(--terracotta); }
+.topnav a{
+  font-family: var(--mono);
+  font-size: 12px; font-weight: 500; color: var(--ink-soft);
+  letter-spacing: 0.6px; text-transform: uppercase;
+  position: relative; padding: 4px 0 6px;
+  display: inline-flex; align-items: baseline; gap: 6px;
+  transition: color 0.2s ease;
+  counter-increment: navindex;
+}
+.topnav a::before{
+  content: counter(navindex, decimal-leading-zero);
+  font-size: 10px;
+  color: var(--terracotta);
+  opacity: 0.75;
+  transition: opacity 0.2s ease;
+}
+.topnav a:hover{ color: var(--navy); }
+.topnav a:hover::before{ opacity: 1; }
 .topnav a::after{
-  content:""; position:absolute; left:0; right:100%; bottom:0; height:1px;
+  content:""; position:absolute; left:0; right:100%; bottom:0; height:1.5px;
   background: var(--terracotta); transition: right 0.25s ease;
 }
 .topnav a:hover::after{ right:0; }
@@ -671,7 +685,10 @@ ul{ list-style:none; margin:0; padding:0; }
    FASE 1 — nav activo (scrollspy)
    ============================================================ */
 .topnav a.active{
-  color: var(--terracotta);
+  color: var(--navy);
+}
+.topnav a.active::before{
+  opacity: 1;
 }
 .topnav a.active::after{
   right: 0;

@@ -117,6 +117,19 @@ ul{ list-style:none; margin:0; padding:0; }
   display:flex; align-items:center; gap: clamp(18px, 2.6vw, 34px); flex-wrap: wrap;
   counter-reset: navindex;
 }
+@media (max-width: 760px){
+  .topnav{
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 20px;
+    padding-bottom: 2px;
+  }
+  .topnav::-webkit-scrollbar{ display: none; }
+  .topnav a{ flex-shrink: 0; }
+  .topbar-inner{ gap: 14px; }
+}
 .topnav a{
   font-family: var(--mono);
   font-size: 12px; font-weight: 500; color: var(--ink-soft);

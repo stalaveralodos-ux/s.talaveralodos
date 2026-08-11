@@ -722,6 +722,7 @@ ul{ list-style:none; margin:0; padding:0; }
   left: 172px;
   width: 1px;
   background: var(--line);
+  pointer-events: none;
 }
 #experience .exp-list-fill,
 #visiting .exp-list-fill,
@@ -733,6 +734,7 @@ ul{ list-style:none; margin:0; padding:0; }
   height: 0;
   background: var(--terracotta);
   transition: height 0.6s ease;
+  pointer-events: none;
 }
 #experience .exp-item,
 #visiting .exp-item,
@@ -754,6 +756,7 @@ ul{ list-style:none; margin:0; padding:0; }
   border: 2px solid var(--line);
   transition: background 0.4s ease, border-color 0.4s ease, transform 0.3s ease, box-shadow 0.4s ease;
   z-index: 1;
+  pointer-events: none;
 }
 #experience .exp-item.in-view::before,
 #visiting .exp-item.in-view::before,
